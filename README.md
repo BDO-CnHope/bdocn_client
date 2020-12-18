@@ -4,6 +4,7 @@
 - [bdocn - Github](https://github.com/BDO-CnHope/bdocn)
 - [bdocn - Gitee](https://gitee.com/bdo-cnhope/bdocn)
 - [黑沙汉化语言包](https://github.com/BDO-CnHope/bdocn)
+- [黑沙汉化工具客户端](https://github.com/BDO-CnHope/bdocn_client)
 
 ## issues
 - 如有问题请开issue提问，比如发现有乱码或者显示不正确等问题。
