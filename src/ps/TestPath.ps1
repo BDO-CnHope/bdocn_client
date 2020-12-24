@@ -1,9 +1,16 @@
 ﻿<#
  .Synopsis
   黑沙美服汉化文本工具
-    .NOTES   Author: Sasulaw@CnHope
-   DateLastModified: 20200314   资源均参考和来自于互联网
-#>$font="prestringtable\font"$ads="ads"
+   
+ .NOTES
+   Author: Sasulaw@CnHope
+   DateLastModified: 20200314
+   资源均参考和来自于互联网
+
+#>
+
+$font="prestringtable\font"
+$ads="ads"
 
 # Test Path
 function TestPath
