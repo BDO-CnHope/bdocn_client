@@ -1,6 +1,7 @@
-# @Time    : 2020/12/24
+# @Time    : 2020/12/25
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
+# @Page    : https://github.com/BDO-CnHope/bdocn_client
 
 from os import listdir
 from os.path import join
@@ -14,6 +15,7 @@ def join_files(fromdir, todir, tofilename):
     for filename in parts:
         filepath = join(fromdir, filename)
         fileobj  = open(filepath, 'rb')
+        print('combine '+ fromdir + ' to ' + filename)
         while 1:
             filebytes = fileobj.read(readsize)
             if not filebytes: break

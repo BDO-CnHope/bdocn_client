@@ -17,7 +17,7 @@
 1. 安装`python`环境
 2. 安装`pyinstaller`
 3. 下载`https://github.com/BDO-CnHope/bdocn_client/tree/main/src/py`里的文件包
-4. 通过终端执行命令`pyinstaller.exe --clean -D -p .\ -i .\logo_og.ico .\ui4.py`
+4. 通过终端执行命令`pyinstaller.exe --clean -F -p .\ -i .\logo_og_han.ico .\run.py`
 5. 在`dist`下能找到打包好的执行文件
 ## 4. 使用旧版的客户端
 1. 旧版的客户端是使用`powershell`写的，然后打包成exe可执行文件
@@ -25,8 +25,9 @@
 3. https://github.com/BDO-CnHope/bdocn_client/tree/main/src/ps
 
 # 注意
-新发布的`python`版（练手版🙈)的汉化客户端可能会被安全软件识别为可疑的执行文件/病毒/木马等, 这是`pyinstaller`的锅。但可以放心的跑。
-如果你不放心/谨慎的话：
+新发布的`python`版（练手版🙈)的汉化客户端可能会被安全软件识误报为可疑的执行文件, 这是`pyinstaller`的锅。但可以放心的运行。
+
+如果你不放心的话：
 1. 请手动安装汉化补丁
 2. 请自己编译文件
 3. 请自己仔细浏览过源文件后再做决定
@@ -37,7 +38,7 @@
 - 如有问题请开issue提问，比如发现有乱码或者显示不正确等问题。
 
 # 声明
-本软件和代码仅供学习交流，如作他用所承受的法律责任一概与作者无关！
+- 本软件和代码仅供学习交流，如作他用所承受的法律责任一概与作者无关！
 
 # 相关链接
 - [bdocn - Github](https://github.com/BDO-CnHope/bdocn)
