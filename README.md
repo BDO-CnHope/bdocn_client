@@ -1,5 +1,5 @@
 # 黑色沙漠汉化工具客户端
-[汉化补丁效果展示](SHOW_SC.md)
+[点击查看汉化补丁效果展示](SHOW_SC.md)
 
 ![image](https://github.com/BDO-CnHope/bdocn_client/raw/main/images/cn1.PNG)
 
