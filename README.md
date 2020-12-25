@@ -9,7 +9,7 @@
 2. 正确的选择黑沙的游戏目录
 3. 按指示完成汉化补丁的安装
 ## 2. 手动安装汉化补丁
-1. 前往[黑沙汉化语言包](https://github.com/BDO-CnHope/bdocn_client)
+1. 前往[黑沙汉化语言包](https://github.com/BDO-CnHope/bdocn)
 2. 打包下载`ads`和`prestringtable`这两个文件夹
 3. 找到你本地的黑沙的游戏根目录
 4. 将下载的两个文件夹覆盖到目录
