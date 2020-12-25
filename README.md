@@ -25,7 +25,7 @@
 3. https://github.com/BDO-CnHope/bdocn_client/tree/main/src/ps
 
 # 注意
-新发布的`python`版的汉化客户端可能会被安全软件识别为可疑的执行文件/病毒/木马等, 这是`pyinstaller`的锅。但可以放心的跑。
+新发布的`python`版（练手版🙈)的汉化客户端可能会被安全软件识别为可疑的执行文件/病毒/木马等, 这是`pyinstaller`的锅。但可以放心的跑。
 如果你不放心/谨慎的话：
 1. 请手动安装汉化补丁
 2. 请自己编译文件
