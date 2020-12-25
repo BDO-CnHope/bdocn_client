@@ -1,4 +1,4 @@
-# 黑沙汉化工具客户端
+#黑色沙漠汉化工具客户端
 
 # 相关链接
 - [bdocn - Github](https://github.com/BDO-CnHope/bdocn)
