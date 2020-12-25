@@ -37,8 +37,8 @@
 - 本软件和代码仅供学习交流，如作他用所承受的法律责任一概与作者无关！
 
 # 相关链接
-- [bdocn - Github](https://github.com/BDO-CnHope/bdocn)
-- [bdocn - Gitee](https://gitee.com/bdo-cnhope/bdocn)
-- [黑沙汉化语言包](https://github.com/BDO-CnHope/bdocn)
-- [黑沙汉化工具客户端](https://github.com/BDO-CnHope/bdocn_client)
+- [bdocn](https://github.com/BDO-CnHope/bdocn)
+- [bdocn_client](https://github.com/BDO-CnHope/bdocn_client)
+- [黑沙汉化语言包](https://gitee.com/bdo-cnhope/bdocn)
+- [黑沙汉化工具客户端](https://gitee.com/bdo-cnhope/bdocn_client)
 
