@@ -1,6 +1,7 @@
-# @Time    : 2020/12/24
+# @Time    : 2020/12/25
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
+# @Page    : https://github.com/BDO-CnHope/bdocn_client
 
 import tkinter as tk
 from tkinter.messagebox import showinfo,askyesno
@@ -10,6 +11,7 @@ from os import mkdir, makedirs
 from os.path import exists
 from shutil import copy, rmtree
 from tempfile import gettempdir
+from datetime import datetime
 import webbrowser
 import joinfiles
 import download
@@ -72,8 +74,8 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.left_panel_bottom_text.config(background='#f2f2f2', font='{Microsoft YaHei} 8 {}', relief='flat')
         self.left_panel_bottom_text.config(state='disabled', width='50')
         _text_ = ''' Create by  Naunter
- Version:    2020122400
- Date:   2020/12/24
+ Version:    2020122500
+ Date:   2020/12/25
 '''
         self.left_panel_bottom_text.configure(state='normal')
         self.left_panel_bottom_text.insert('0.0', _text_)
@@ -144,10 +146,12 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.mainwindow = self.main_window
 
     def insert_text(self, content):
-        # https://blog.csdn.net/qq_37308029/article/details/103554145
+        time_stamp = datetime.now()
         self.process_panel_progresstext.config(state='normal')
-        self.process_panel_progresstext.insert(tk.END, content + '\n')
+        self.process_panel_progresstext.insert(tk.END, str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + '\n')
+        self.process_panel_progresstext.insert(tk.END, content)
         self.process_panel_progresstext.config(state='disabled')
+        print(str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + ' inserted output: '+ content)
 
     def hyperlinks(self, var):
         if var == 1 :
@@ -221,7 +225,14 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
                 mkdir(temp_bdocn_dir)
         except:
             self.insert_text('操作错误，请重试...code: 1 \n')
+            pass
         else:
+            if exists(temp_loc_dir) == False:
+                mkdir(temp_loc_dir)
+            elif exists(temp_font_dir) == False:
+                mkdir(temp_font_dir)
+            elif exists(temp_bdocn_dir) == False:
+                mkdir(temp_bdocn_dir)
             try:
                 if num == 1:
                     if check_new.get_loc_hash(1) != self.check_loc_hash():
@@ -341,19 +352,3 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
 
     def run(self):
             self.mainwindow.mainloop()
-
-if __name__ == '__main__':
-    import tkinter as tk
-    root = tk.Tk()
-    root.title('黑色沙漠汉化工具 by Naunter')
-    root.resizable(False, False)
-    app = Application(root)
-    if check_new.get_client_version() != '2020122400':
-        a = askyesno('提示', '有新版本的客户端，是否查看？')
-        if a == True:
-            app.hyperlinks(2)
-            thread_func.thread_it(app.run(), '')
-        else:
-            thread_func.thread_it(app.run(), '')
-    else:
-        thread_func.thread_it(app.run(), '')

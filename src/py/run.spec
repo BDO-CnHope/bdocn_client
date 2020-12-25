@@ -1,10 +1,10 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-block_cipher = None
+block_cipher = pyi_crypto.PyiBlockCipher(key='bdocn_20201225')
 
 
-a = Analysis(['ui4.py'],
-             pathex=['\\Documents\\BDO\\bdocn_source\\python\\publish\\2020122400_build'],
+a = Analysis(['run.py'],
+             pathex=['.\\', '\\Documents\\BDO\\bdocn_source\\python\\publish\\2020122400_build'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -23,11 +23,11 @@ exe = EXE(pyz,
           a.zipfiles,
           a.datas,
           [],
-          name='ui4',
+          name='run',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
           upx_exclude=[],
           runtime_tmpdir=None,
-          console=True , icon='logo_og.ico')
+          console=True , icon='logo_og_han.ico')

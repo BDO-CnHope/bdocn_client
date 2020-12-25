@@ -1,10 +1,10 @@
-# @Time    : 2020/12/24
+# @Time    : 2020/12/25
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
+# @Page    : https://github.com/BDO-CnHope/bdocn_client
 
 from urllib.request import build_opener,install_opener,urlretrieve,urlopen,Request
 from re import findall
-from time import sleep
 from ran_useragent import GetUserAgent
 import ui4
 
@@ -15,6 +15,7 @@ def download_file(url, todir, tofilename):
     opener.addheaders = [('User-agent', user_agent)]
     install_opener(opener)
     urlretrieve(url, path)
+    print('download '+url+' to '+path)
     
 
 def download_split_files(url, todir):
@@ -51,9 +52,6 @@ def download_split_files(url, todir):
         full_url = ''
         full_url = raw_url + '/' + filename
         download_file(full_url, todir, filename)
-        #sleep(0.5)
-        print(filename)
-        print(full_url)
 
 def download_en_loc():
     en_loc_ver = 'http://akamai-gamecdn.blackdesertonline.com/live001/game/config/config.language.version'

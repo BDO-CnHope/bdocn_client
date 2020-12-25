@@ -1,6 +1,7 @@
-# @Time    : 2020/12/24
+# @Time    : 2020/12/25
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
+# @Page    : https://github.com/BDO-CnHope/bdocn_client
 
 from urllib.request import build_opener,install_opener,urlretrieve,urlopen,Request
 from hashlib import sha256
@@ -31,6 +32,8 @@ def get_font_hash(num):
         a = urlopen(gitee_font_hash)
         font_hash = a.read().decode('utf-8').strip()
         return(font_hash)
+    else:
+        return None
 
 def get_loc_hash(num):
     github_loc_hash = 'https://github.com/BDO-CnHope/bdocn/raw/master/CHECK/LOC_SHA256'
@@ -47,6 +50,8 @@ def get_loc_hash(num):
         a = urlopen(gitee_loc_hash)
         loc_hash = a.read().decode('utf-8').strip()
         return(loc_hash)
+    else:
+        return None
 
 def get_hash(path):
     BUF_SIZE = 65536  
