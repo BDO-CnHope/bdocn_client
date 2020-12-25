@@ -3,16 +3,14 @@
 # @Page    : https://github.com/Naunters
 
 import tkinter as tk
-import tkinter.ttk as ttk
-import tkinter.messagebox
+from tkinter.messagebox import showinfo,askyesno
 from tkinter.filedialog import askdirectory
 from tkinter.scrolledtext import ScrolledText
-import re
-import os
-import shutil
-import tempfile
+from os import mkdir, makedirs
+from os.path import exists
+from shutil import copy, rmtree
+from tempfile import gettempdir
 import webbrowser
-import urllib.request
 import joinfiles
 import download
 import thread_func
@@ -44,9 +42,9 @@ class Application:
         self.left_panel_body_text.config(background='#f2f2f2', font='{Microsoft YaHei} 10 {}', height='10', relief='flat')
         self.left_panel_body.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#ff8000', height='200', text='使用方法')
         self.left_panel_body.config(width='200')
-        self.left_panel_body.place(anchor='nw', height='350', width='290', x='0', y='150')
+        self.left_panel_body.place(anchor='nw', height='370', width='290', x='0', y='150')
         self.left_panel_body_text = tk.Text(self.left_panel_body)
-        self.left_panel_body_text.config(background='#f2f2f2', font='{Microsoft YaHei} 10 {}', height='10', relief='flat')
+        self.left_panel_body_text.config(background='#f2f2f2', font='{Microsoft YaHei} 10 {}', relief='flat')
         self.left_panel_body_text.config(state='disabled', width='50')
         client_notice = '''1. 运行本汉化工具前，请先退出并关闭游戏！如运行着其它的汉化工具，也请关闭。
 
@@ -59,34 +57,36 @@ class Application:
 * 举例Steam的黑沙路径: 
 C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\ 
 
-* Steam端用户如出现问题，请“重新校验游戏文件”后再重新运行一次本汉化工具。'''
+* Steam端用户如出现问题，请“重新校验游戏文件”后再重新运行一次本汉化工具。
+
+* 网络波动等因素导致下载会比较慢，请耐心等待'''
         self.left_panel_body_text.configure(state='normal')
         self.left_panel_body_text.insert('0.0', client_notice)
         self.left_panel_body_text.configure(state='disabled')
-        self.left_panel_body_text.place(anchor='nw', height='320', width='280', x='0', y='0')
+        self.left_panel_body_text.place(anchor='nw', height='340', width='280', x='0', y='0')
         self.left_panel_bottom = tk.LabelFrame(self.main_window)
-        self.left_panel_bottom.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', height='200', relief='groove')
+        self.left_panel_bottom.config(background='#f2f2f2', font='{Microsoft YaHei} 10 {bold}', relief='groove')
         self.left_panel_bottom.config(text='来源', width='200')
-        self.left_panel_bottom.place(anchor='nw', height='100', width='290', x='0', y='500')
+        self.left_panel_bottom.place(anchor='nw', height='80', width='290', x='0', y='520')
         self.left_panel_bottom_text = tk.Text(self.left_panel_bottom)
-        self.left_panel_bottom_text.config(background='#f2f2f2', font='{Microsoft YaHei} 10 {}', height='10', relief='flat')
+        self.left_panel_bottom_text.config(background='#f2f2f2', font='{Microsoft YaHei} 8 {}', relief='flat')
         self.left_panel_bottom_text.config(state='disabled', width='50')
-        _text_ = '''Create by Naunter
-Version: 2020122400
-Date: 2020/12/24
+        _text_ = ''' Create by  Naunter
+ Version:    2020122400
+ Date:   2020/12/24
 '''
         self.left_panel_bottom_text.configure(state='normal')
         self.left_panel_bottom_text.insert('0.0', _text_)
         self.left_panel_bottom_text.configure(state='disabled')
-        self.left_panel_bottom_text.place(anchor='nw', height='70', width='150', x='0', y='0')
+        self.left_panel_bottom_text.place(anchor='nw', height='50', width='150', x='0', y='0')
         self.left_panel_bottom_button_1 = tk.Button(self.left_panel_bottom)
         self.left_panel_bottom_button_1.config(text='Github')
         self.left_panel_bottom_button_1.place(anchor='nw', height='26', width='80', x='200', y='0')
-        self.left_panel_bottom_button_1.configure(command=lambda:self.hyperlinks(1))
+        self.left_panel_bottom_button_1.configure(command=lambda :thread_func.thread_it(self.hyperlinks(1)))
         self.left_panel_bottom_button_2 = tk.Button(self.left_panel_bottom)
         self.left_panel_bottom_button_2.config(text='Gitee')
-        self.left_panel_bottom_button_2.place(anchor='nw', height='26', width='80', x='200', y='40')
-        self.left_panel_bottom_button_2.configure(command=lambda:self.hyperlinks(2))
+        self.left_panel_bottom_button_2.place(anchor='nw', height='26', width='80', x='200', y='30')
+        self.left_panel_bottom_button_2.configure(command=lambda :thread_func.thread_it(self.hyperlinks(2)))
         self.save_path = tk.LabelFrame(self.main_window)
         self.save_path.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#0000ff', height='200', relief='groove')
         self.save_path.config(text='1. 文件保存路径', width='200')
@@ -99,7 +99,7 @@ Date: 2020/12/24
         self.save_path_entry.place(anchor='nw', height='20', width='210', x='5', y='3')
         self.save_path_button = tk.Button(self.save_path)
         self.save_path_button.config(font='{Microsoft YaHei} 9 {}', text='打开...')
-        self.save_path_button.configure(command=self.select_path)
+        self.save_path_button.configure(command=lambda :thread_func.thread_it(self.select_path))
         self.save_path_button.place(anchor='nw', height='25', width='70', x='220', y='0')
         self.download_method = tk.LabelFrame(self.main_window)
         self.download_method.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#004080', height='200', relief='groove')
@@ -134,15 +134,19 @@ Date: 2020/12/24
         self.process_panel.config(font='{Microsoft YaHei} 12 {bold}', foreground='#008000', height='200', text='4. 操作面板', width='200')
         self.process_panel.place(anchor='nw', height='260', width='300', x='300', y='340')
         self.process_panel_button_1 = tk.Button(self.process_panel)
-        self.process_panel_button_1.config(font='{Microsoft YaHei} 12 {}',text='开始运行')
-        self.process_panel_button_1.configure(command=self.start_button)
+        self.process_panel_button_1.config(font='{Microsoft YaHei} 12 {bold}', background='#008000', foreground='white', text='开始汉化')
+        self.process_panel_button_1.configure(command=lambda :thread_func.thread_it(self.start_button))
         self.process_panel_button_1.place(anchor='nw', height='50', width='285', x='5', y='0')
         self.process_panel_progresstext = ScrolledText(self.process_panel)
-        self.process_panel_progresstext.config(font='{Microsoft YaHei} 10 {}', height='10', width='50', relief='groove')
-        self.process_panel_progresstext.configure(state='normal')
+        self.process_panel_progresstext.config(font='{Microsoft YaHei} 10 {}', relief='groove', state='disabled')
         self.process_panel_progresstext.insert('0.0', '...\n')
         self.process_panel_progresstext.place(anchor='nw', height='160', width='285', x='5', y='60')
         self.mainwindow = self.main_window
+
+    def insert_text(self, content):
+        self.process_panel_progresstext.config(state='normal')
+        self.process_panel_progresstext.insert(tk.END, content + '\n')
+        self.process_panel_progresstext.config(state='disabled')
 
     def hyperlinks(self, var):
         if var == 1 :
@@ -154,40 +158,46 @@ Date: 2020/12/24
         open_path = askdirectory()
         self.save_path_entry.delete('0', 'end')
         self.save_path_entry.insert('0', open_path)
-        self.process_panel_progresstext.insert(tk.INSERT, '选择了目录: \n'+open_path+'\n')
+        self.insert_text('选择了目录: \n'+open_path+'\n')
 
     def check_bdo_dir(self):
         todir = self.save_path_entry.get()
         ads_dir = todir + '\\ads\\'
         font_dir = todir + '\\prestringtable' + '\\font'
         if todir == '' or todir == self.save_path_entry_text:
-            tk.messagebox.showinfo('提示','你没有选择正确的目录! ')
-            self.process_panel_progresstext.insert(tk.INSERT, '你没有选择正确的游戏目录! \n')
+            showinfo('提示','你没有选择正确的目录! ')
+            self.insert_text('你没有选择正确的游戏目录! \n')
             return False
-        elif os.path.exists(ads_dir) == False:
-            tk.messagebox.showinfo('提示','没有找到语言文件目录，请检查游戏完整性!')
-            self.process_panel_progresstext.insert(tk.INSERT, '没有找到语言文件目录，请检查游戏完整性! \n')
+        elif exists(ads_dir) == False:
+            showinfo('提示','没有找到语言文件目录，请检查游戏完整性!')
+            self.insert_text('没有找到语言文件目录，请检查游戏完整性! \n')
             return False
-        elif os.path.exists(font_dir) == False:
-            os.makedirs(font_dir)
+        elif exists(font_dir) == False:
+            makedirs(font_dir)
             return(font_dir)
-        elif os.path.exists(font_dir) == True:
+        elif exists(font_dir) == True:
             return(font_dir)
 
     def check_loc_hash(self):
         todir = self.save_path_entry.get()
         ads_dir = todir + '\\ads\\languagedata_en.loc'
-        return(check_new.get_hash(ads_dir))
+        if exists(ads_dir) == False:
+            return None
+        else:
+            return(check_new.get_hash(ads_dir))
 
     def check_font_hash(self):
         todir = self.save_path_entry.get()
         font_dir = todir + '\\prestringtable\\font\\pearl.ttf'
-        return(check_new.get_hash(font_dir))
+        if exists(font_dir) == False:
+            return None
+        else:
+            return(check_new.get_hash(font_dir))
 
     def hh_method(self, num):
         todir = self.save_path_entry.get()
         font_dir = self.check_bdo_dir()
-        tmpdirname = str(tempfile.gettempdir())
+        tmpdirname = str(gettempdir())
 
         ads_dir = todir + '\\ads'
         temp_loc_dir = tmpdirname + r'\split_loc'
@@ -202,111 +212,131 @@ Date: 2020/12/24
         en_loc_zip = download.download_en_loc()
         
         try:
-            if os.path.exists(temp_bdocn_dir) == False or os.path.exists(temp_font_dir) == False or os.path.exists(temp_bdocn_dir) == False:
-                os.mkdir(temp_loc_dir)
-                os.mkdir(temp_font_dir)
-                os.mkdir(temp_bdocn_dir)
+            if exists(temp_loc_dir) == False:
+                mkdir(temp_loc_dir)
+            elif exists(temp_font_dir) == False:
+                mkdir(temp_font_dir)
+            elif exists(temp_bdocn_dir) == False:
+                mkdir(temp_bdocn_dir)
         except:
-            self.process_panel_progresstext.insert(tk.INSERT, '操作错误，请重试... \n')
-            pass
+            self.insert_text('操作错误，请重试...code: 1 \n')
         else:
-            if num == 1:
-                if check_new.get_loc_hash(1) != self.check_loc_hash():
-                    self.process_panel_progresstext.insert(tk.INSERT, '正在使用国外线路下载简体汉化语言包…… \n')
-                    thread_func.thread_it(download.download_file, (github_loc, ads_dir, 'languagedata_en.loc'))
-                    self.process_panel_progresstext.insert(tk.INSERT, '简体汉化包已更新! \n')
-                else:
-                    self.process_panel_progresstext.insert(tk.INSERT, '简体汉化包已是最新的了! \n')   
-                if check_new.get_font_hash(1) != self.check_font_hash():
-                    self.process_panel_progresstext.insert(tk.INSERT, '正在下载字体包…… \n')
-                    thread_func.thread_it(download.download_file, (github_font, font_dir, 'pearl.ttf'))
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已更新! \n')
-                else:
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已是最新的了! \n')
-            elif num == 2:
-                self.process_panel_progresstext.insert(tk.INSERT, '正在下载繁体汉化语言包…… \n')
-                thread_func.thread_it(download.download_file, (tw_loc, ads_dir, 'languagedata_en.loc'))
-                self.process_panel_progresstext.insert(tk.INSERT, '繁体汉化包已更新! \n')
-                if check_new.get_font_hash(1) != self.check_font_hash():
-                    self.process_panel_progresstext.insert(tk.INSERT, '正在下载字体包…… \n')
-                    thread_func.thread_it(download.download_file, (github_font, font_dir, 'pearl.ttf'))
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已更新! \n')
-                else:
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已是最新的了! \n')
-            elif num == 3:
-                if check_new.get_font_hash(1) != self.check_font_hash():
-                    self.process_panel_progresstext.insert(tk.INSERT, '正在下载字体包…… \n')
-                    thread_func.thread_it(download.download_file, (github_font, font_dir, 'pearl.ttf'))
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已更新! \n')
-                else:
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已是最新的了! \n')
-            elif num == 11:
-                if check_new.get_loc_hash(2) != self.check_loc_hash():
-                    self.process_panel_progresstext.insert(tk.INSERT, '正在使用国内线路下载简体汉化语言包…… \n')
-                    thread_func.thread_it(download.download_split_files, (gitee_loc, temp_loc_dir))
-                    thread_func.thread_it(joinfiles.join_files, (temp_loc_dir, ads_dir, 'languagedata_en.loc'))
-                    self.process_panel_progresstext.insert(tk.INSERT, '简体汉化包已更新! \n')
-                else:
-                    self.process_panel_progresstext.insert(tk.INSERT, '简体汉化包已是最新的了! \n')
-                if check_new.get_font_hash(2) != self.check_font_hash():
-                    self.process_panel_progresstext.insert(tk.INSERT, '正在下载字体包…… \n')
-                    thread_func.thread_it(download.download_split_files, (gitee_font, temp_font_dir))
-                    thread_func.thread_it(joinfiles.join_files, (temp_font_dir, font_dir, 'pearl.ttf'))
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已更新! \n')
-                else:
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已是最新的了! \n')
-            elif num == 12:
-                self.process_panel_progresstext.insert(tk.INSERT, '正在下载繁体汉化语言包…… \n')
-                thread_func.thread_it(download.download_file, (tw_loc, ads_dir, 'languagedata_en.loc'))
-                self.process_panel_progresstext.insert(tk.INSERT, '繁体汉化包已更新! \n')
-                if check_new.get_font_hash(2) != self.check_font_hash():
-                    self.process_panel_progresstext.insert(tk.INSERT, '正在下载字体包…… \n')
-                    thread_func.thread_it(download.download_split_files, (gitee_font, temp_font_dir))
-                    thread_func.thread_it(joinfiles.join_files, (temp_font_dir, font_dir, 'pearl.ttf'))
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已更新! \n')
-                else:
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已是最新的了! \n')
-            elif num == 13:
-                if check_new.get_font_hash(2) != self.check_font_hash():
-                    self.process_panel_progresstext.insert(tk.INSERT, '正在下载字体包…… \n')
-                    thread_func.thread_it(download.download_split_files, (gitee_font, temp_font_dir))
-                    thread_func.thread_it(joinfiles.join_files, (temp_font_dir, font_dir, 'pearl.ttf'))
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已更新! \n')
-                else:
-                    self.process_panel_progresstext.insert(tk.INSERT, '字体包已是最新的了! \n')
-            elif num == 4:
-                self.process_panel_progresstext.insert(tk.INSERT, '正在重新安装美服英语包…… \n')
-                unzip_dir = temp_bdocn_dir + '\\loc'
-                thread_func.thread_it(download.download_file, (en_loc_zip, temp_bdocn_dir, 'BDOLanguage.zip'))
-                thread_func.thread_it(unzip.un_zip, (temp_bdocn_dir, 'BDOLanguage.zip', unzip_dir))
-                thread_func.thread_it(shutil.copy, (unzip_dir + '\\' + 'languagedata_en.loc', ads_dir))
-                self.process_panel_progresstext.insert(tk.INSERT, '已恢复为美服英语! \n')
-        os.removedirs(temp_loc_dir)
-        os.removedirs(temp_font_dir)
-        os.removedirs(temp_bdocn_dir)
+            try:
+                if num == 1:
+                    if check_new.get_loc_hash(1) != self.check_loc_hash():
+                        self.insert_text('正在使用国外线路下载简体汉化语言包…… \n')
+                        download.download_file(github_loc, ads_dir, 'languagedata_en.loc')
+                        self.insert_text('简体汉化包已更新! \n')
+                    else:
+                        self.insert_text('简体汉化包已是最新的了! \n')   
+                    if check_new.get_font_hash(1) != self.check_font_hash():
+                        self.insert_text( '正在下载字体包…… \n')
+                        download.download_file(github_font, font_dir, 'pearl.ttf')
+                        self.insert_text('字体包已更新! \n')
+                    else:
+                        self.insert_text('字体包已是最新的了! \n')
+                    showinfo('提示','汉化已完成！')
+                elif num == 2:
+                    self.insert_text('正在下载繁体汉化语言包…… \n')
+                    download.download_file(tw_loc, ads_dir, 'languagedata_en.loc')
+                    self.insert_text('繁体汉化包已更新! \n')
+                    if check_new.get_font_hash(1) != self.check_font_hash():
+                        self.insert_text('正在下载字体包…… \n')
+                        download.download_file(github_font, font_dir, 'pearl.ttf')
+                        self.insert_text('字体包已更新! \n')
+                    else:
+                        self.insert_text('字体包已是最新的了! \n')
+                    showinfo('提示','汉化已完成！')
+                elif num == 3:
+                    if check_new.get_font_hash(1) != self.check_font_hash():
+                        self.insert_text('正在下载字体包…… \n')
+                        download.download_file(github_font, font_dir, 'pearl.ttf')
+                        self.insert_text('字体包已更新! \n')
+                    else:
+                        self.insert_text('字体包已是最新的了! \n')
+                    showinfo('提示','汉化已完成！')
+                elif num == 11:
+                    if check_new.get_loc_hash(2) != self.check_loc_hash():
+                        self.insert_text('正在使用国内线路下载简体汉化语言包…… \n')
+                        download.download_split_files(gitee_loc, temp_loc_dir)
+                        joinfiles.join_files(temp_loc_dir, ads_dir, 'languagedata_en.loc')
+                        self.insert_text('简体汉化包已更新! \n')
+                    else:
+                        self.insert_text('简体汉化包已是最新的了! \n')
+                    if check_new.get_font_hash(2) != self.check_font_hash():
+                        self.insert_text('正在下载字体包…… \n')
+                        download.download_split_files(gitee_font, temp_font_dir)
+                        joinfiles.join_files(temp_font_dir, font_dir, 'pearl.ttf')
+                        self.insert_text('字体包已更新! \n')
+                    else:
+                        self.insert_text('字体包已是最新的了! \n')
+                    showinfo('提示','汉化已完成！')
+                elif num == 12:
+                    self.insert_text('正在下载繁体汉化语言包…… \n')
+                    download.download_file(tw_loc, ads_dir, 'languagedata_en.loc')
+                    self.insert_text('繁体汉化包已更新! \n')
+                    if check_new.get_font_hash(2) != self.check_font_hash():
+                        self.insert_text('正在下载字体包…… \n')
+                        download.download_split_files(gitee_font, temp_font_dir)
+                        joinfiles.join_files(temp_font_dir, font_dir, 'pearl.ttf')
+                        self.insert_text('字体包已更新! \n')
+                    else:
+                        self.insert_text('字体包已是最新的了! \n')
+                    showinfo('提示','汉化已完成！')
+                elif num == 13:
+                    if check_new.get_font_hash(2) != self.check_font_hash():
+                        self.insert_text('正在下载字体包…… \n')
+                        download.download_split_files(gitee_font, temp_font_dir)
+                        joinfiles.join_files, (temp_font_dir, font_dir, 'pearl.ttf')
+                        self.insert_text('字体包已更新! \n')
+                    else:
+                        self.insert_text('字体包已是最新的了! \n')
+                    showinfo('提示','汉化已完成！')
+                elif num == 4:
+                    self.insert_text('正在重新安装美服英语包…… \n')
+                    unzip_dir = temp_bdocn_dir + '\\loc'
+                    download.download_file(en_loc_zip, temp_bdocn_dir, 'BDOLanguage.zip')
+                    unzip.un_zip(temp_bdocn_dir, 'BDOLanguage.zip', unzip_dir)
+                    copy(unzip_dir + '\\' + 'languagedata_en.loc', ads_dir)
+                    self.insert_text('已恢复为美服英语! \n')
+                    showinfo('提示','任务已完成！')
+            except:
+                self.insert_text('操作错误，请重试...code: 2 \n')
+                if exists(temp_loc_dir) == True:
+                    rmtree(temp_loc_dir)
+                elif exists(temp_font_dir) == True:                 
+                    rmtree(temp_font_dir)
+                elif exists(temp_bdocn_dir) == True:
+                    rmtree(temp_bdocn_dir)
 
     def start_button(self):
-        a = tkinter.messagebox.askyesno('提示', '要执行此操作吗')
+        a = askyesno('提示', '要执行此操作吗')
         if self.check_bdo_dir() == False:
             pass
         elif a == True and str(self.hmVar.get()) == '4':
+            self.process_panel_button_1.config(state='disabled')
             self.hh_method(4)
+            self.process_panel_button_1.config(state='normal')
         elif a == True and str(self.dmVar.get()) == '1':
+            self.process_panel_button_1.config(state='disabled')
             if str(self.hmVar.get()) == '1':
                 self.hh_method(1)
             elif str(self.hmVar.get()) == '2':
                 self.hh_method(2)
             elif str(self.hmVar.get()) == '3':
                 self.hh_method(3)
+            self.process_panel_button_1.config(state='normal')
         elif a == True and str(self.dmVar.get()) == '2':
+            self.process_panel_button_1.config(state='disabled')
             if str(self.hmVar.get()) == '1':
                 self.hh_method(11)
             elif str(self.hmVar.get()) == '2':
                 self.hh_method(12)
             elif str(self.hmVar.get()) == '3':
                 self.hh_method(13)
+            self.process_panel_button_1.config(state='normal')
         else:
-            pass
+            self.process_panel_button_1.config(state='normal')
 
     def run(self):
             self.mainwindow.mainloop()
@@ -318,7 +348,7 @@ if __name__ == '__main__':
     root.resizable(False, False)
     app = Application(root)
     if check_new.get_client_version() != '2020122400':
-        a = tkinter.messagebox.askyesno('提示', '有新版本的客户端，是否查看？')
+        a = askyesno('提示', '有新版本的客户端，是否查看？')
         if a == True:
             app.hyperlinks(2)
             thread_func.thread_it(app.run(), '')
