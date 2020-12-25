@@ -144,6 +144,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.mainwindow = self.main_window
 
     def insert_text(self, content):
+        # https://blog.csdn.net/qq_37308029/article/details/103554145
         self.process_panel_progresstext.config(state='normal')
         self.process_panel_progresstext.insert(tk.END, content + '\n')
         self.process_panel_progresstext.config(state='disabled')
