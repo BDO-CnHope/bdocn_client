@@ -1,7 +1,7 @@
 # 黑色沙漠汉化工具客户端
 [点击查看汉化补丁效果展示](SHOW_SC.md)
 
-![image](images/cn1.PNG)
+![image](./images/cn1.PNG)
 
 # 使用方法
 ## 1. 通过客户端打汉化补丁
