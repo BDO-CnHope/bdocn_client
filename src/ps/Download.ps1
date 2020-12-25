@@ -1,9 +1,15 @@
 ﻿<#
  .Synopsis
-  黑沙美服汉化文本工具:Download Function  . Reference
+  黑沙美服汉化文本工具:Download Function
+ 
+ . Reference
    https://stackoverflow.com/questions/21422364/is-there-any-way-to-monitor-the-progress-of-a-download-using-a-webclient-object
-    .NOTES   Author: Sasulaw@CnHope
-   DateLastModified: 20200314   资源均参考和来自于互联网
+   
+ .NOTES
+   Author: Sasulaw@CnHope
+   DateLastModified: 20200314
+   资源均参考和来自于互联网
+
 #>
 
 function Download($url, $targetFile)
