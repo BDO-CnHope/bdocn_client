@@ -1,7 +1,7 @@
 # 黑色沙漠汉化工具客户端
 [点击查看汉化补丁效果展示](SHOW_SC.md)
 
-![image](https://github.com/BDO-CnHope/bdocn_client/raw/main/images/cn1.PNG)
+![image](images/cn1.PNG)
 
 # 使用方法
 ## 1. 通过客户端打汉化补丁
@@ -25,14 +25,8 @@
 3. https://github.com/BDO-CnHope/bdocn_client/tree/main/src/ps
 
 # 注意
-新发布的`python`版（练手版🙈)的汉化客户端可能会被安全软件识误报为可疑的执行文件, 这是`pyinstaller`的锅。但可以放心的运行。
-
-如果你不放心的话：
-1. 请手动安装汉化补丁
-2. 请自己编译文件
-3. 请自己仔细浏览过源文件后再做决定
-4. 如果不清楚/不懂的，请不要下载和运行
-5. 如有问题，请开issue讨论
+- 已在Windows 10 x64上测试过客户端可正常运行，但未测试在其它版本Windows上的兼容性如何。
+- 新发布的`python`版（练手版🙈)的汉化客户端可能会被安全软件误报为可疑的执行文件，但可以放心的运行。如果你不放心的话, 请自行斟酌。
 
 # issue
 - 如有问题请开issue提问，比如发现有乱码或者显示不正确等问题。
