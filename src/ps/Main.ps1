@@ -10,10 +10,10 @@
 #>
 
 
-$dlenloc="http://bit.ly/3aUASn3"
-$dltwloc="http://bit.ly/2TUa1SJ"
-$dlscloc="http://bit.ly/2WgGOCS"
-$dlfont="http://bit.ly/2Qgo6HD"
+$dlenloc="http://dn.sea.playblackdesert.com/UploadData/ads/languagedata_en.loc"
+$dltwloc="http://dn.blackdesert.com.tw/UploadData/ads/languagedata_tw.loc"
+$dlscloc="https://github.com/BDO-CnHope/bdocn/raw/master/ads/languagedata_en.loc"
+$dlfont="https://github.com/BDO-CnHope/bdocn/raw/master/prestringtable/font/pearl.ttf"
 
 $temp=$env:TMP
 
