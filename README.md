@@ -36,6 +36,10 @@
 # 声明
 - 本软件和代码仅供学习交流，如作他用所承受的法律责任一概与作者无关！
 
+# Update
+### 20210206
+- 添加新功能: 不覆盖现有字体文件. issue #2
+
 # 相关链接
 - [bdocn](https://github.com/BDO-CnHope/bdocn)
 - [bdocn_client](https://github.com/BDO-CnHope/bdocn_client)
