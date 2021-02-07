@@ -3,6 +3,18 @@
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
 
+# reference
+# cd "C:\Users\user-edu\AppData\Local\Programs\Python\Python39\Scripts"
+# python3 -m pip install requests
+# https://www.w3schools.com/python/module_requests.asp
+# https://www.tutorialspoint.com/downloading-files-from-web-using-python
+# https://www.programmersought.com/article/3277959585/
+# https://toodo.fun/funs/learn/files/article_frame.php?id=72
+# Python实现多进程/多线程同时下载单个文件
+# https://blog.csdn.net/dongfuguo/article/details/104995567
+# https://www.fatalerrors.org/a/single-file-source-under-python-multithreading.html
+# https://zhuanlan.zhihu.com/p/162965342
+
 from urllib.request import build_opener,install_opener,urlretrieve,urlopen,Request
 from re import findall
 from ran_useragent import GetUserAgent

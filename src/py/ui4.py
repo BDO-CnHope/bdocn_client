@@ -1,4 +1,4 @@
-# @Time    : 2020/12/25
+# @Time    : 2021/02/06
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -73,9 +73,9 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.left_panel_bottom_text = tk.Text(self.left_panel_bottom)
         self.left_panel_bottom_text.config(background='#f2f2f2', font='{Microsoft YaHei} 8 {}', relief='flat')
         self.left_panel_bottom_text.config(state='disabled', width='50')
-        _text_ = ''' Create by  Naunter
- Version:    2020122500
- Date:   2020/12/25
+        _text_ = ''' Create by Naunter
+ Version:    2021020600
+ Date:   2021/02/06
 '''
         self.left_panel_bottom_text.configure(state='normal')
         self.left_panel_bottom_text.insert('0.0', _text_)
@@ -125,13 +125,17 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.hanhua_method_radiobutton_1.place(anchor='nw', x='0', y='0')
         self.hanhua_method_radiobutton_2 = tk.Radiobutton(self.hanhua_method)
         self.hanhua_method_radiobutton_2.config(font='{Microsoft YaHei} 12 {}', text='繁体汉化', variable=self.hmVar, value='2')
-        self.hanhua_method_radiobutton_2.place(anchor='nw', x='0', y='50')
+        self.hanhua_method_radiobutton_2.place(anchor='nw', x='0', y='40')
         self.hanhua_method_radiobutton_3 = tk.Radiobutton(self.hanhua_method)
         self.hanhua_method_radiobutton_3.config(font='{Microsoft YaHei} 12 {}', text='不汉化，只安装字体', variable=self.hmVar, value='3')
-        self.hanhua_method_radiobutton_3.place(anchor='nw', x='0', y='100')
+        self.hanhua_method_radiobutton_3.place(anchor='nw', x='0', y='80')
         self.hanhua_method_radiobutton_4 = tk.Radiobutton(self.hanhua_method)
         self.hanhua_method_radiobutton_4.config(font='{Microsoft YaHei} 12 {}', text='清除汉化，恢复英文', variable=self.hmVar, value='4')
-        self.hanhua_method_radiobutton_4.place(anchor='nw', x='0', y='150')
+        self.hanhua_method_radiobutton_4.place(anchor='nw', x='0', y='120')
+        self.usefontVar = tk.StringVar(value="1")
+        self.no_font_change = tk.Checkbutton(self.hanhua_method)
+        self.no_font_change.configure(font='{Microsoft YaHei} 9 {}', relief='flat', text='不更新或覆盖现有的汉化字体(只对简繁汉化有效)', variable=self.usefontVar)
+        self.no_font_change.place(anchor='nw', x='0', y='155')
         self.process_panel = tk.LabelFrame(self.main_window)
         self.process_panel.config(font='{Microsoft YaHei} 12 {bold}', foreground='#008000', height='200', text='4. 操作面板', width='200')
         self.process_panel.place(anchor='nw', height='260', width='300', x='300', y='340')
@@ -241,7 +245,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
                         self.insert_text('简体汉化包已更新! \n')
                     else:
                         self.insert_text('简体汉化包已是最新的了! \n')   
-                    if check_new.get_font_hash(1) != self.check_font_hash():
+                    if check_new.get_font_hash(1) != self.check_font_hash() and str(self.usefontVar.get()) != '1':
                         self.insert_text( '正在下载字体包…… \n')
                         download.download_file(github_font, font_dir, 'pearl.ttf')
                         self.insert_text('字体包已更新! \n')
@@ -252,7 +256,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
                     self.insert_text('正在下载繁体汉化语言包…… \n')
                     download.download_file(tw_loc, ads_dir, 'languagedata_en.loc')
                     self.insert_text('繁体汉化包已更新! \n')
-                    if check_new.get_font_hash(1) != self.check_font_hash():
+                    if check_new.get_font_hash(1) != self.check_font_hash() and str(self.usefontVar.get()) != '1':
                         self.insert_text('正在下载字体包…… \n')
                         download.download_file(github_font, font_dir, 'pearl.ttf')
                         self.insert_text('字体包已更新! \n')
@@ -275,7 +279,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
                         self.insert_text('简体汉化包已更新! \n')
                     else:
                         self.insert_text('简体汉化包已是最新的了! \n')
-                    if check_new.get_font_hash(2) != self.check_font_hash():
+                    if check_new.get_font_hash(2) != self.check_font_hash() and str(self.usefontVar.get()) != '1':
                         self.insert_text('正在下载字体包…… \n')
                         download.download_split_files(gitee_font, temp_font_dir)
                         joinfiles.join_files(temp_font_dir, font_dir, 'pearl.ttf')
@@ -287,7 +291,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
                     self.insert_text('正在下载繁体汉化语言包…… \n')
                     download.download_file(tw_loc, ads_dir, 'languagedata_en.loc')
                     self.insert_text('繁体汉化包已更新! \n')
-                    if check_new.get_font_hash(2) != self.check_font_hash():
+                    if check_new.get_font_hash(2) != self.check_font_hash() and str(self.usefontVar.get()) != '1':
                         self.insert_text('正在下载字体包…… \n')
                         download.download_split_files(gitee_font, temp_font_dir)
                         joinfiles.join_files(temp_font_dir, font_dir, 'pearl.ttf')
