@@ -38,7 +38,7 @@
 
 # Update
 ### 20210206
-- 添加新功能: 不覆盖现有字体文件. issue #2
+- 添加新功能: 不覆盖现有字体文件. [issue #2](https://github.com/BDO-CnHope/bdocn_client/issues/2)
 
 # 相关链接
 - [bdocn](https://github.com/BDO-CnHope/bdocn)
