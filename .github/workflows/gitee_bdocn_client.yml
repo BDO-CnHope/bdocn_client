@@ -17,8 +17,6 @@ jobs:
       with:
         src: github/BDO-CnHope/
         dst: gitee/bdo-cnhope/
-        dst_key: ${{ secrets.gitee_bdocn }}
-        dst_token:  ${{ secrets.gitee_token }}
+        dst_token:  ${{ secrets.bdocn_client }}
         account_type: user
         static_list: "bdocn_client"
-        debug: true
