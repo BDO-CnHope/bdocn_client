@@ -1,0 +1,24 @@
+name: Gitee repos mirror periodic job
+
+on:
+  #schedule:
+  #- cron:  '0 7 * * *'
+   push:
+    branches:
+    - master
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Mirror the Github organization repos to Gitee.
+      uses:  Yikun/hub-mirror-action@master
+      with:
+        src: github/BDO-CnHope/
+        dst: gitee/bdo-cnhope/
+        dst_key: ${{ secrets.gitee_bdocn }}
+        dst_token:  ${{ secrets.gitee_token }}
+        account_type: user
+        static_list: "docn_client"
+        force_update: true
+        debug: true
