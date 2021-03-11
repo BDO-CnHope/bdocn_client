@@ -37,6 +37,10 @@
 - 本软件和代码仅供学习交流，如作他用所承受的法律责任一概与作者无关！
 
 # Update
+### 20210311
+- 已知问题: 由于黑沙更新了版本（运营商更替)的原因，旧版本的很多地方在新版本黑纱里都被修改了，主要原因就是汉化字体显示错误[issue #3](https://github.com/BDO-CnHope/bdocn_client/issues/3)
+  - 感谢@Rokker提出了一个临时的解决办法, 可到这里查看：https://github.com/BDO-CnHope/bdocn_client/issues/3#issuecomment-796784987
+  - 但注意要先运行黑沙的启动器后，在保持启动器运行的状态下，再执行汉化
 ### 20210206
 - 添加新功能: 不覆盖现有字体文件. [issue #2](https://github.com/BDO-CnHope/bdocn_client/issues/2)
 
