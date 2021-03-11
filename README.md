@@ -26,6 +26,14 @@
 2. 已不再维护，但应该还能用
 3. https://github.com/BDO-CnHope/bdocn_client/tree/main/src/ps
 
+# Update
+### 20210311
+- 已知问题: 由于黑沙更新了版本（运营商更替)的原因，旧版本的很多地方在新版本黑纱里都被修改了，主要原因就是汉化字体显示错误[issue #3](https://github.com/BDO-CnHope/bdocn_client/issues/3)
+  - 感谢@Rokker提出了一个临时的解决办法, 可到这里查看：https://github.com/BDO-CnHope/bdocn_client/issues/3#issuecomment-796784987
+  - 但注意要先运行黑沙的启动器后，在保持启动器运行的状态下，再执行汉化
+### 20210206
+- 添加新功能: 不覆盖现有字体文件. [issue #2](https://github.com/BDO-CnHope/bdocn_client/issues/2)
+
 # 注意
 - 已在Windows 10 x64上测试过客户端可正常运行，但未测试在其它版本Windows上的兼容性如何。
 - 新发布的`python`版（练手版🙈)的汉化客户端可能会被安全软件误报为可疑的执行文件，但可以放心的运行。如果你不放心的话, 请自行斟酌。
@@ -35,14 +43,6 @@
 
 # 声明
 - 本软件和代码仅供学习交流，如作他用所承受的法律责任一概与作者无关！
-
-# Update
-### 20210311
-- 已知问题: 由于黑沙更新了版本（运营商更替)的原因，旧版本的很多地方在新版本黑纱里都被修改了，主要原因就是汉化字体显示错误[issue #3](https://github.com/BDO-CnHope/bdocn_client/issues/3)
-  - 感谢@Rokker提出了一个临时的解决办法, 可到这里查看：https://github.com/BDO-CnHope/bdocn_client/issues/3#issuecomment-796784987
-  - 但注意要先运行黑沙的启动器后，在保持启动器运行的状态下，再执行汉化
-### 20210206
-- 添加新功能: 不覆盖现有字体文件. [issue #2](https://github.com/BDO-CnHope/bdocn_client/issues/2)
 
 # 相关链接
 - [bdocn](https://github.com/BDO-CnHope/bdocn)
