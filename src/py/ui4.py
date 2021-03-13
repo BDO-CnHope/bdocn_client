@@ -1,4 +1,4 @@
-# @Time    : 2021/02/06
+# @Time    : 2021/03/12
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -16,7 +16,6 @@ import webbrowser
 import joinfiles
 import download
 import thread_func
-import unzip
 import check_new
 
 class Application:
@@ -48,7 +47,7 @@ class Application:
         self.left_panel_body_text = tk.Text(self.left_panel_body)
         self.left_panel_body_text.config(background='#f2f2f2', font='{Microsoft YaHei} 10 {}', relief='flat')
         self.left_panel_body_text.config(state='disabled', width='50')
-        client_notice = '''1. 运行本汉化工具前，请先退出并关闭游戏！如运行着其它的汉化工具，也请关闭。
+        client_notice = '''1. 运行本汉化工具前，请先运行黑沙的启动器并等待其更新完毕 (进度条显示100%)！
 
 2. 请选择正确的“黑沙的游戏目录”
 
@@ -74,8 +73,8 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.left_panel_bottom_text.config(background='#f2f2f2', font='{Microsoft YaHei} 8 {}', relief='flat')
         self.left_panel_bottom_text.config(state='disabled', width='50')
         _text_ = ''' Create by Naunter
- Version:    2021020600
- Date:   2021/02/06
+ Version:    2021031200
+ Date:   2021/03/12
 '''
         self.left_panel_bottom_text.configure(state='normal')
         self.left_panel_bottom_text.insert('0.0', _text_)
@@ -134,7 +133,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.hanhua_method_radiobutton_4.place(anchor='nw', x='0', y='120')
         self.usefontVar = tk.StringVar(value="1")
         self.no_font_change = tk.Checkbutton(self.hanhua_method)
-        self.no_font_change.configure(font='{Microsoft YaHei} 9 {}', relief='flat', text='不更新或覆盖现有的汉化字体(只对简繁汉化有效)', variable=self.usefontVar)
+        self.no_font_change.configure(font='{Microsoft YaHei} 9 {}', relief='flat', text='不覆盖当前的字体 (第一次汉化请取消勾选)', variable=self.usefontVar)
         self.no_font_change.place(anchor='nw', x='0', y='155')
         self.process_panel = tk.LabelFrame(self.main_window)
         self.process_panel.config(font='{Microsoft YaHei} 12 {bold}', foreground='#008000', height='200', text='4. 操作面板', width='200')
@@ -218,7 +217,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         github_font = 'https://github.com/BDO-CnHope/bdocn/raw/master/prestringtable/font/pearl.ttf'
         gitee_loc = 'https://gitee.com/bdo-cnhope/bdocn/tree/master/split/'
         gitee_font = 'https://gitee.com/bdo-cnhope/bdocn/tree/master/split_font/'
-        en_loc_zip = download.download_en_loc()
+        en_loc = download.download_en_loc()
         
         try:
             if exists(temp_loc_dir) == False:
@@ -310,10 +309,8 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
                     showinfo('提示','汉化已完成！')
                 elif num == 4:
                     self.insert_text('正在重新安装美服英语包…… \n')
-                    unzip_dir = temp_bdocn_dir + '\\loc'
-                    download.download_file(en_loc_zip, temp_bdocn_dir, 'BDOLanguage.zip')
-                    unzip.un_zip(temp_bdocn_dir, 'BDOLanguage.zip', unzip_dir)
-                    copy(unzip_dir + '\\' + 'languagedata_en.loc', ads_dir)
+                    download.download_file(en_loc, temp_bdocn_dir, 'languagedata_en.loc')
+                    copy(temp_bdocn_dir + '\\' + 'languagedata_en.loc', ads_dir)
                     self.insert_text('已恢复为美服英语! \n')
                     showinfo('提示','任务已完成！')
             except:
