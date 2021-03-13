@@ -4,7 +4,7 @@
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
 
 import tkinter as tk
-from tkinter.messagebox import showinfo,askyesno
+from tkinter.messagebox import showinfo,askyesno,showwarning
 from tkinter.filedialog import askdirectory
 from tkinter.scrolledtext import ScrolledText
 from os import mkdir, makedirs
@@ -17,6 +17,7 @@ import joinfiles
 import download
 import thread_func
 import check_new
+import check_launcher
 
 class Application:
     def __init__(self, master=None):
@@ -324,32 +325,38 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
 
     def start_button(self):
         a = askyesno('提示', '要执行此操作吗')
-        if self.check_bdo_dir() == False:
-            pass
-        elif a == True and str(self.hmVar.get()) == '4':
-            self.process_panel_button_1.config(state='disabled')
-            self.hh_method(4)
-            self.process_panel_button_1.config(state='normal')
-        elif a == True and str(self.dmVar.get()) == '1':
-            self.process_panel_button_1.config(state='disabled')
-            if str(self.hmVar.get()) == '1':
-                self.hh_method(1)
-            elif str(self.hmVar.get()) == '2':
-                self.hh_method(2)
-            elif str(self.hmVar.get()) == '3':
-                self.hh_method(3)
-            self.process_panel_button_1.config(state='normal')
-        elif a == True and str(self.dmVar.get()) == '2':
-            self.process_panel_button_1.config(state='disabled')
-            if str(self.hmVar.get()) == '1':
-                self.hh_method(11)
-            elif str(self.hmVar.get()) == '2':
-                self.hh_method(12)
-            elif str(self.hmVar.get()) == '3':
-                self.hh_method(13)
-            self.process_panel_button_1.config(state='normal')
+
+        if a == True and check_launcher.no_bdo_conf_dir() != True:
+            check_launcher.change_bdo_font_conf()
+
+            if self.check_bdo_dir() == False:
+                pass
+            elif a == True and str(self.hmVar.get()) == '4':
+                self.process_panel_button_1.config(state='disabled')
+                self.hh_method(4)
+                self.process_panel_button_1.config(state='normal')
+            elif a == True and str(self.dmVar.get()) == '1':
+                self.process_panel_button_1.config(state='disabled')
+                if str(self.hmVar.get()) == '1':
+                    self.hh_method(1)
+                elif str(self.hmVar.get()) == '2':
+                    self.hh_method(2)
+                elif str(self.hmVar.get()) == '3':
+                    self.hh_method(3)
+                self.process_panel_button_1.config(state='normal')
+            elif a == True and str(self.dmVar.get()) == '2':
+                self.process_panel_button_1.config(state='disabled')
+                if str(self.hmVar.get()) == '1':
+                    self.hh_method(11)
+                elif str(self.hmVar.get()) == '2':
+                    self.hh_method(12)
+                elif str(self.hmVar.get()) == '3':
+                    self.hh_method(13)
+                self.process_panel_button_1.config(state='normal')
+            else:
+                self.process_panel_button_1.config(state='normal')
         else:
-            self.process_panel_button_1.config(state='normal')
+            showwarning('警告', '无法找到黑色沙漠的配置文件!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化)')
 
     def run(self):
             self.mainwindow.mainloop()
