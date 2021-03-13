@@ -21,3 +21,4 @@ jobs:
         dst_token:  ${{ secrets.BDOCN_CLIENT_TOKEN }}
         account_type: user
         static_list: "bdocn_client"
+        force_update: true
