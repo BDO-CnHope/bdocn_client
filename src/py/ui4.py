@@ -92,21 +92,37 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.save_path = tk.LabelFrame(self.main_window)
         self.save_path.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#0000ff', height='200', relief='groove')
         self.save_path.config(text='1. 文件保存路径', width='200')
-        self.save_path.place(anchor='nw', height='60', width='300', x='300', y='0')
+        self.save_path.place(anchor='nw', height='120', width='300', x='300', y='0')
+        self.save_path_entry_label = tk.Label(self.save_path)
+        self.save_path_entry_label.configure(text='请选择黑沙的游戏根目录 :')
+        self.save_path_entry_label.place(anchor='nw', height='15', x='3', y='0')
         self.save_path_entry = tk.Entry(self.save_path)
         self.save_path_entry.config(font='{Microsoft YaHei} 10 {}')
         self.save_path_entry_text = '''请选择黑沙的游戏根目录...'''
         self.save_path_entry.delete('0', 'end')
         self.save_path_entry.insert('0', self.save_path_entry_text)
-        self.save_path_entry.place(anchor='nw', height='20', width='210', x='5', y='3')
+        self.save_path_entry.place(anchor='nw', height='20', width='210', x='5', y='20')
         self.save_path_button = tk.Button(self.save_path)
         self.save_path_button.config(font='{Microsoft YaHei} 9 {}', text='打开...')
         self.save_path_button.configure(command=lambda :thread_func.thread_it(self.select_path))
-        self.save_path_button.place(anchor='nw', height='25', width='70', x='220', y='0')
+        self.save_path_button.place(anchor='nw', height='25', width='70', x='220', y='17')
+        self.conf_path_entry_label = tk.Label(self.save_path)
+        self.conf_path_entry_label.configure(text='手动选择黑沙的配置文件目录 (默认会自动选择) :')
+        self.conf_path_entry_label.place(anchor='nw', height='15', x='3', y='45')
+        self.conf_path_entry = tk.Entry(self.save_path)
+        self.conf_path_entry.config(font='{Microsoft YaHei} 10 {}')
+        self.conf_path_entry_text = ''''''
+        self.conf_path_entry.delete('0', 'end')
+        self.conf_path_entry.insert('0', self.conf_path_entry_text)
+        self.conf_path_entry.place(anchor='nw', height='20', width='210', x='5', y='65')
+        self.conf_path_button = tk.Button(self.save_path)
+        self.conf_path_button.config(font='{Microsoft YaHei} 9 {}', text='打开...')
+        self.conf_path_button.configure(command=lambda :thread_func.thread_it(self.select_conf_path))
+        self.conf_path_button.place(anchor='nw', height='25', width='70', x='220', y='63')
         self.download_method = tk.LabelFrame(self.main_window)
         self.download_method.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#004080', height='200', relief='groove')
         self.download_method.config(text='2. 汉化包下载线路', width='200')
-        self.download_method.place(anchor='nw', height='60', width='300', x='300', y='60')
+        self.download_method.place(anchor='nw', height='60', width='300', x='300', y='120')
         self.dmVar = tk.StringVar(value="1")
         self.download_method_radiobutton_1 = tk.Radiobutton(self.download_method)
         self.download_method_radiobutton_1.config(font='{Microsoft YaHei} 12 {}', text='海外下载', value="1", variable=self.dmVar)
@@ -117,7 +133,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.hanhua_method = tk.LabelFrame(self.main_window)
         self.hanhua_method.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#008080', height='200', text='3. 汉化方式')
         self.hanhua_method.config(width='200')
-        self.hanhua_method.place(anchor='nw', height='220', width='300', x='300', y='120')
+        self.hanhua_method.place(anchor='nw', height='220', width='300', x='300', y='180')
         self.hmVar=tk.IntVar()
         self.hmVar.set(1)
         self.hanhua_method_radiobutton_1 = tk.Radiobutton(self.hanhua_method)
@@ -138,7 +154,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.no_font_change.place(anchor='nw', x='0', y='155')
         self.process_panel = tk.LabelFrame(self.main_window)
         self.process_panel.config(font='{Microsoft YaHei} 12 {bold}', foreground='#008000', height='200', text='4. 操作面板', width='200')
-        self.process_panel.place(anchor='nw', height='260', width='300', x='300', y='340')
+        self.process_panel.place(anchor='nw', height='200', width='300', x='300', y='400')
         self.process_panel_button_1 = tk.Button(self.process_panel)
         self.process_panel_button_1.config(font='{Microsoft YaHei} 12 {bold}', background='#008000', foreground='white', text='开始汉化')
         self.process_panel_button_1.configure(command=lambda :thread_func.thread_it(self.start_button))
@@ -146,7 +162,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.process_panel_progresstext = ScrolledText(self.process_panel)
         self.process_panel_progresstext.config(font='{Microsoft YaHei} 10 {}', relief='groove', state='disabled')
         self.process_panel_progresstext.insert('0.0', '...\n')
-        self.process_panel_progresstext.place(anchor='nw', height='160', width='285', x='5', y='60')
+        self.process_panel_progresstext.place(anchor='nw', height='110', width='285', x='5', y='60')
         self.mainwindow = self.main_window
 
     def insert_text(self, content):
@@ -174,7 +190,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         ads_dir = todir + '\\ads\\'
         font_dir = todir + '\\prestringtable' + '\\font'
         if todir == '' or todir == self.save_path_entry_text:
-            showinfo('提示','你没有选择正确的目录! ')
+            showinfo('提示','你没有选择正确的游戏目录! ')
             self.insert_text('你没有选择正确的游戏目录! \n')
             return False
         elif exists(ads_dir) == False:
@@ -186,6 +202,21 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
             return(font_dir)
         elif exists(font_dir) == True:
             return(font_dir)
+
+    def select_conf_path(self):
+        open_path = askdirectory()
+        self.conf_path_entry.delete('0', 'end')
+        self.conf_path_entry.insert('0', open_path)
+        self.insert_text('选择了目录: \n'+open_path+'\n')
+
+    def check_bdo_conf_path(self):
+        todir = self.conf_path_entry.get()
+        conf_dir = todir + '\\GameOption.txt'
+        if exists(conf_dir):
+            return(conf_dir)
+        else:
+            showwarning('警告', '无法找到黑色沙漠的配置文件!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 请检查配置文件是否生成在当前用户的目录下，亦或是生成在了别的用户的目录下，比如管理员的用户目录。\n例子: C:/Users/你的用户名/Documents/Black Desert')
+            return False
 
     def check_loc_hash(self):
         todir = self.save_path_entry.get()
@@ -220,6 +251,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         gitee_font = 'https://gitee.com/bdo-cnhope/bdocn/tree/master/split_font/'
         en_loc = download.download_en_loc()
         
+        # 因为会出现一些奇奇怪怪的问题导致找不到缓存的路径，暂时就这么个办法将就吧…
         try:
             if exists(temp_loc_dir) == False:
                 mkdir(temp_loc_dir)
@@ -325,9 +357,16 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
 
     def start_button(self):
         a = askyesno('提示', '要执行此操作吗')
-
+        # 检查BDO的配置文件
         if a == True and check_launcher.no_bdo_conf_dir() != True:
-            check_launcher.change_bdo_font_conf()
+            # 如果用户没有自选配置文件，就使用默认
+            if self.conf_path_entry.get() == '':
+                conf_dir = ''
+                check_launcher.change_bdo_font_conf(conf_dir)
+            else:
+                # 用户自选配置文件路径
+                conf_dir = self.check_bdo_conf_path()
+                check_launcher.change_bdo_font_conf(conf_dir)
 
             if self.check_bdo_dir() == False:
                 pass
@@ -356,7 +395,7 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
             else:
                 self.process_panel_button_1.config(state='normal')
         else:
-            showwarning('警告', '无法找到黑色沙漠的配置文件!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化)')
+            showwarning('警告', '无法找到黑色沙漠的配置文件!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 手动选择黑沙的配置文件目录. \n例子: C:/Users/你的用户名/Documents/Black Desert')
 
     def run(self):
             self.mainwindow.mainloop()
