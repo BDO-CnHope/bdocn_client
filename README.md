@@ -29,7 +29,7 @@
 # Update
 ### 20210313
 - 更新版本: 2021031200
-- 修复了汉化文字显示问题(issue #3)
+- 修复了汉化文字显示问题[issue #3](https://github.com/BDO-CnHope/bdocn_client/issues/3)
 - 修复了英语文件的位置
 - 添加功能，允许steam的用户在开启汉化工具同时启动steam的黑沙
 - 修正了一些其它的错误和问题
