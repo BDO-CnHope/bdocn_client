@@ -1,4 +1,4 @@
-# @Time    : 2021/03/12
+# @Time    : 2021/03/13
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -17,6 +17,7 @@ def change_bdo_font_conf(dir):
     if dir == '':
         dir = bdo_conf_path
 
+    print("BDO conf path: " + dir)
     # open GameOption.txt
     f = open(dir,"r+")
     conf = f.read()
