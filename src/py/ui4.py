@@ -1,4 +1,4 @@
-# @Time    : 2021/03/12
+# @Time    : 2021/03/13
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -74,8 +74,8 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
         self.left_panel_bottom_text.config(background='#f2f2f2', font='{Microsoft YaHei} 8 {}', relief='flat')
         self.left_panel_bottom_text.config(state='disabled', width='50')
         _text_ = ''' Create by Naunter
- Version:    2021031200
- Date:   2021/03/12
+ Version:    2021031201
+ Date:   2021/03/13
 '''
         self.left_panel_bottom_text.configure(state='normal')
         self.left_panel_bottom_text.insert('0.0', _text_)
@@ -211,12 +211,14 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
 
     def check_bdo_conf_path(self):
         todir = self.conf_path_entry.get()
-        conf_dir = todir + '\\GameOption.txt'
+        conf_dir = todir + r'\\GameOption.txt'
+        print(conf_dir)
         if exists(conf_dir):
             return(conf_dir)
         else:
             showwarning('警告', '无法找到黑色沙漠的配置文件!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 请检查配置文件是否生成在当前用户的目录下，亦或是生成在了别的用户的目录下，比如管理员的用户目录。\n例子: C:/Users/你的用户名/Documents/Black Desert')
-            return False
+            print("check_bdo_conf_path error")
+            print("无法找到黑色沙漠的配置文件, 请重试")
 
     def check_loc_hash(self):
         todir = self.save_path_entry.get()
@@ -358,44 +360,48 @@ C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
     def start_button(self):
         a = askyesno('提示', '要执行此操作吗')
         # 检查BDO的配置文件
-        if a == True and check_launcher.no_bdo_conf_dir() != True:
-            # 如果用户没有自选配置文件，就使用默认
-            if self.conf_path_entry.get() == '':
-                conf_dir = ''
-                check_launcher.change_bdo_font_conf(conf_dir)
+        if a == True and self.conf_path_entry.get() == '':
+            if check_launcher.no_bdo_conf_dir() == True:
+                showwarning('警告', '无法找到黑色沙漠的配置文件!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 手动选择黑沙的配置文件目录. \n例子: C:/Users/你的用户名/Documents/Black Desert')
+                print("check_launcher.no_bdo_conf_dir error, please re-try")
+                print("无法找到黑色沙漠的配置文件, 请重试")
             else:
-                # 用户自选配置文件路径
-                conf_dir = self.check_bdo_conf_path()
+                conf_dir = ''
+                print("Selected a default BDO conf path")
                 check_launcher.change_bdo_font_conf(conf_dir)
 
-            if self.check_bdo_dir() == False:
-                pass
-            elif a == True and str(self.hmVar.get()) == '4':
-                self.process_panel_button_1.config(state='disabled')
-                self.hh_method(4)
-                self.process_panel_button_1.config(state='normal')
-            elif a == True and str(self.dmVar.get()) == '1':
-                self.process_panel_button_1.config(state='disabled')
-                if str(self.hmVar.get()) == '1':
-                    self.hh_method(1)
-                elif str(self.hmVar.get()) == '2':
-                    self.hh_method(2)
-                elif str(self.hmVar.get()) == '3':
-                    self.hh_method(3)
-                self.process_panel_button_1.config(state='normal')
-            elif a == True and str(self.dmVar.get()) == '2':
-                self.process_panel_button_1.config(state='disabled')
-                if str(self.hmVar.get()) == '1':
-                    self.hh_method(11)
-                elif str(self.hmVar.get()) == '2':
-                    self.hh_method(12)
-                elif str(self.hmVar.get()) == '3':
-                    self.hh_method(13)
-                self.process_panel_button_1.config(state='normal')
-            else:
-                self.process_panel_button_1.config(state='normal')
+        if a == True and self.conf_path_entry.get() != '':
+            # 用户自选配置文件路径
+            conf_dir = self.check_bdo_conf_path()
+            print("Selected a custom BDO conf path")
+            check_launcher.change_bdo_font_conf(conf_dir)
+
+        if self.check_bdo_dir() == False:
+            pass
+        elif a == True and str(self.hmVar.get()) == '4':
+            self.process_panel_button_1.config(state='disabled')
+            self.hh_method(4)
+            self.process_panel_button_1.config(state='normal')
+        elif a == True and str(self.dmVar.get()) == '1':
+            self.process_panel_button_1.config(state='disabled')
+            if str(self.hmVar.get()) == '1':
+                self.hh_method(1)
+            elif str(self.hmVar.get()) == '2':
+                self.hh_method(2)
+            elif str(self.hmVar.get()) == '3':
+                self.hh_method(3)
+            self.process_panel_button_1.config(state='normal')
+        elif a == True and str(self.dmVar.get()) == '2':
+            self.process_panel_button_1.config(state='disabled')
+            if str(self.hmVar.get()) == '1':
+                self.hh_method(11)
+            elif str(self.hmVar.get()) == '2':
+                self.hh_method(12)
+            elif str(self.hmVar.get()) == '3':
+                self.hh_method(13)
+            self.process_panel_button_1.config(state='normal')
         else:
-            showwarning('警告', '无法找到黑色沙漠的配置文件!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 手动选择黑沙的配置文件目录. \n例子: C:/Users/你的用户名/Documents/Black Desert')
+            self.process_panel_button_1.config(state='normal')
 
     def run(self):
             self.mainwindow.mainloop()
