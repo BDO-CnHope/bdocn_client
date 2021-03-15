@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Mirror the Github organization repos to Gitee.
-      uses:  Yikun/hub-mirror-action@python
+      uses:  Yikun/hub-mirror-action@master
       with:
         src: github/BDO-CnHope/
         dst: gitee/bdo-cnhope/
