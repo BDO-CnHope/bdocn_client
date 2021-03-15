@@ -1,26 +1,27 @@
-# @Time    : 2021/03/12
+# @Time    : 2021/03/14
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
 
 from urllib.request import build_opener,install_opener,urlretrieve,urlopen,Request
 from re import findall
-from ran_useragent import GetUserAgent
 import ui4
+from datetime import datetime
+
+time_stamp = datetime.now()
 
 def download_file(url, todir, tofilename):
-    path = todir + '\\' + tofilename
-    user_agent = GetUserAgent()
+    print("[BEGIN] download_file >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
+    path = todir + r'/' + tofilename
     opener = build_opener()
-    opener.addheaders = [('User-agent', user_agent)]
+    opener.addheaders = [('User-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0')]
     install_opener(opener)
     urlretrieve(url, path)
     print('download '+url+' to '+path)
-    
 
 def download_split_files(url, todir):
-    user_agent = GetUserAgent()
-    header = {"User-Agent":user_agent,}
+    print("[BEGIN] download_split_files >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
+    header = {"User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0'}
     add_header = Request(url, headers=header)
     dl_link = urlopen(add_header)
     data = dl_link.read().decode('utf-8')
@@ -31,11 +32,11 @@ def download_split_files(url, todir):
     if 'github' in url and 'split_font' in url:
         raw_url = 'https://github.com/BDO-CnHope/bdocn/raw/master/split_font/'
     elif 'github' in url and 'split_font' not in url:
-        raw_url = 'https://github.com/BDO-CnHope/bdocn/raw/master/split/'
+        raw_url = 'https://github.com/BDO-CnHope/bdocn/raw/master/split_loc/'
     elif 'gitee' in url and 'split_font' in url:
         raw_url = 'https://gitee.com/bdo-cnhope/bdocn/raw/master/split_font/'
     elif 'gitee' in url and 'split_font' not in url:
-        raw_url = 'https://gitee.com/bdo-cnhope/bdocn/raw/master/split/'
+        raw_url = 'https://gitee.com/bdo-cnhope/bdocn/raw/master/split_loc/'
     else:
         pass
 
@@ -50,14 +51,14 @@ def download_split_files(url, todir):
     
     for filename in hrefs:
         full_url = ''
-        full_url = raw_url + '/' + filename
+        full_url = raw_url + r'/' + filename
         download_file(full_url, todir, filename)
 
 def download_en_loc():
+    print("[BEGIN] download_en_loc >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
     en_loc_ver = 'http://dn.sea.playblackdesert.com/UploadData/ads_files'
-    user_agent = GetUserAgent()
     opener = build_opener()
-    opener.addheaders = [('User-agent', user_agent)]
+    opener.addheaders = [('User-agent', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0')]
     install_opener(opener)
     a = urlopen(en_loc_ver)
     version = a.read().decode('utf-8')
