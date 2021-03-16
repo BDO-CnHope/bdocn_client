@@ -1,4 +1,4 @@
-# @Time    : 2021/03/14
+# @Time    : 2021/03/15
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -17,6 +17,7 @@ import download
 import thread_func
 import check_new
 import check_launcher
+import save_conf
 
 time_stamp = datetime.now()
 
@@ -55,8 +56,8 @@ class Application:
         client_notice = r'''1. 执行汉化前，请先【运行黑沙的启动器】并等待其更新完毕 (显示100%)！
 2. 选择正确的【黑沙的游戏目录】
 3. 黑沙配置目录默认会自动选择, 可不手选
-3. 根据需求选择你要汉化的方式
-4. 点击运行执行汉化
+4. 根据需求选择你要汉化的方式
+5. 点击运行执行汉化
 
 * 举例Steam的黑沙路径: 
 C:\Program Files (x86)\Steam\steamapps\common\Black Desert Online\
@@ -79,8 +80,8 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.left_panel_bottom_text.config(background='#f2f2f2', font='{Microsoft YaHei} 8 {}', relief='flat')
         self.left_panel_bottom_text.config(state='disabled', width='50')
         _text_ = ''' Create by Naunter
- Version:    2021031400
- Date:   2021/03/14
+ Version:    2021031402
+ Date:   2021/03/15
 '''
         self.left_panel_bottom_text.configure(state='normal')
         self.left_panel_bottom_text.insert('0.0', _text_)
@@ -104,7 +105,7 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.save_path_entry_label.place(anchor='nw', height='15', x='3', y='0')
         self.save_path_entry = tk.Entry(self.save_path)
         self.save_path_entry.config(font='{Microsoft YaHei} 10 {}')
-        self.save_path_entry_text = '''请选择黑沙的游戏根目录...'''
+        self.save_path_entry_text = ''''''
         self.save_path_entry.delete('0', 'end')
         self.save_path_entry.insert('0', self.save_path_entry_text)
         self.save_path_entry.place(anchor='nw', height='20', width='210', x='5', y='20')
@@ -194,68 +195,147 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
     # 选择黑沙游戏目录
     def select_path(self):
         print("[BEGIN] select_path >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        open_path = askdirectory()
+        user_home = str(Path.home())
+        a, b = self.read_bdocn_save_gamepath_conf()
+        if self.save_path_entry.get() == '' and a is True:
+            todir = b
+            print('select_path: todir: '+str(todir))
+        else:
+            todir = user_home
+        
+        open_path = askdirectory(title="请选择黑沙的游戏根目录", initialdir = todir)
         self.save_path_entry.delete('0', 'end')
         self.save_path_entry.insert('0', open_path)
         self.insert_text('选择了目录: \n'+open_path+'\n')
 
     def check_bdo_dir(self):
         print("[BEGIN] check_bdo_dir >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        todir = self.save_path_entry.get()
+        a, b = self.read_bdocn_save_gamepath_conf()
+        if self.save_path_entry.get() == '' and a is True:
+            todir = b
+            self.save_path_entry.insert('0', todir)
+            print('check_bdo_dir: todir: '+str(todir))
+        else:
+            todir = self.save_path_entry.get()
+
         ads_dir = todir + r'/ads/'
+        print('check_bdo_dir: ads_dir: '+str(ads_dir))
         font_dir = todir + r'/prestringtable' + r'/font/'
+        print('check_bdo_dir: font_dir: '+str(font_dir))
+
         if todir == '' or todir == self.save_path_entry_text:
             showinfo('提示','你没有选择正确的目录! ')
             self.insert_text('你没有选择正确的游戏目录! \n')
             return False
         elif not Path(ads_dir).is_dir():
-            showinfo('提示','没有找到语言文件目录，请检查游戏完整性!')
-            self.insert_text('没有找到语言文件目录，请检查游戏完整性! \n')
+            showinfo('提示','没有找到语言文件目录(/ads)，请检查游戏完整性!')
+            self.insert_text('没有找到语言文件目录(/ads)，请检查游戏完整性! \n')
             return False
         elif not Path(font_dir).is_dir():
             Path(font_dir).mkdir(parents=True, exist_ok=True)
             return(font_dir)
         elif Path(font_dir).is_dir():
             return(font_dir)
+        else:
+            print('[ERROR] check_bdo_dir: else pass \n')
+            pass
 
     # 选择黑沙配置目录
     def select_conf_path(self):
         print("[BEGIN] select_conf_path >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        open_path = askopenfilename()
+        user_home = str(Path.home())
+        a, b = self.read_bdocn_save_confpath_conf()
+        if self.conf_path_entry.get() == '' and a is True:
+            todir = b
+            print('select_conf_path: todir: '+str(todir))
+        else:
+            todir = user_home
+
+        open_path = askopenfilename(title="请选择黑沙配置文件(GameOption.txt)", initialdir = r'todir')
         self.conf_path_entry.delete('0', 'end')
         self.conf_path_entry.insert('0', open_path)
-        self.insert_text('选择了目录: \n'+open_path+'\n')
+        self.insert_text('选择了文件: \n'+open_path+'\n')
 
     def check_bdo_conf_path(self):
         print("[BEGIN] select_conf_path >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        todir = self.conf_path_entry.get()
-        print('select_conf_path: conf_dir: ' + str(todir))
+
+        a, b = self.read_bdocn_save_confpath_conf()
+
+        if self.conf_path_entry.get() == '' and a is True:
+            todir = b
+            self.conf_path_entry.insert('0', todir)
+            print('check_bdo_conf_path: todir: '+str(todir))
+        else:
+            todir = self.conf_path_entry.get()
+
+        print('check_bdo_conf_path: conf_dir: ' + str(todir))
+
         if Path(todir).is_file() or Path(todir).is_dir():
             return(todir)
-        elif not Path(todir).is_file() or not Path(todir).is_dir():
+        else:
             print("[ERROR] check_bdo_conf_path: not Path(todir).is_file()")
             showwarning('警告', '无法找到黑色沙漠的【配置文件】!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 请检查配置文件是否生成在当前用户的目录下，亦或是生成在了别的用户的目录下，比如管理员的用户目录。\n例子: C:/Users/你的用户名/Documents/Black Desert/GameOption.txt')
             return False
-        else:
-            print("[ERROR] check_bdo_conf_path: else pass")
-            pass
 
     def check_bdo_conf_empty_path(self):
         # 检查BDO的配置文件(路径为空时)
-        if self.conf_path_entry.get() == '':
-            if check_launcher.no_bdo_conf_dir() == True:
-                print("[ERROR] start_button: check_launcher.no_bdo_conf_dir() == True")
-                showwarning('警告', '无法找到黑色沙漠的【配置目录】!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 请检查配置文件是否生成在当前用户的目录下，亦或是生成在了别的用户的目录下，比如管理员的用户目录。\n例子: C:/Users/你的用户名/Documents/Black Desert/GameOption.txt \n\n3. 请确认黑沙的配置文件文件夹里面包含GameOption.txt这个文件')
-                return False
-            elif check_launcher.no_bdo_conf() == True:
-                print("[ERROR] start_button: check_launcher.no_bdo_conf() == True")
-                showwarning('警告', '无法找到黑色沙漠的【配置文件】!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 请检查配置文件是否生成在当前用户的目录下，亦或是生成在了别的用户的目录下，比如管理员的用户目录。\n例子: C:/Users/你的用户名/Documents/Black Desert/GameOption.txt')
-                return False
-            else:
-                conf_dir = ''
-                print("start_button: Selected a default BDO conf path")
-                check_launcher.change_bdo_font_conf(conf_dir)
-                return True
+        print('check_bdo_conf_empty_path: check_launcher.no_bdo_conf_dir: ' + str(check_launcher.no_bdo_conf()))
+        print('check_bdo_conf_empty_path: check_launcher.no_bdo_conf: '+ str(check_launcher.no_bdo_conf()))
+
+        a, b = self.read_bdocn_save_confpath_conf()
+
+        if check_launcher.no_bdo_conf_dir() is True and a is False:
+            showwarning('警告', '无法找到黑色沙漠默认的【配置目录】!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 请检查配置文件是否生成在当前用户的目录下，亦或是生成在了别的用户的目录下，比如管理员的用户目录。\n例子: C:/Users/你的用户名/Documents/Black Desert/GameOption.txt \n\n3. 请确认黑沙的配置文件文件夹里面包含GameOption.txt这个文件')
+            return False
+        elif check_launcher.no_bdo_conf() is True and a is False:
+            showwarning('警告', '无法找到黑色沙漠默认的【配置文件】!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 请检查配置文件是否生成在当前用户的目录下，亦或是生成在了别的用户的目录下，比如管理员的用户目录。\n例子: C:/Users/你的用户名/Documents/Black Desert/GameOption.txt')
+            return False
+        elif self.conf_path_entry.get() == '' and a is False:
+            conf_dir = ''
+            print("start_button: Selected a default BDO conf path")
+            check_launcher.change_bdo_font_conf(conf_dir)
+            return True
+        elif self.conf_path_entry.get() == '' and a is True:
+            conf_dir = b
+            print("start_button: use saved BDO conf path")
+            check_launcher.change_bdo_font_conf(conf_dir)
+            return True
+
+    def read_bdocn_save_gamepath_conf(self):
+        print("[BEGIN] read_bdocn_save_gamepath_conf >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
+        bdocn_conf_dir = save_conf.save_bdocn_conf_dir()
+        bdo_gamepath = (bdocn_conf_dir + r'/bdocn_gamepath.txt')
+        if Path(bdo_gamepath).is_file() is True and Path(bdo_gamepath).stat().st_size != 0:
+            f = open(bdo_gamepath)
+            conf = f.read()
+            f.close()
+            return True, conf
+        else:
+            conf = ''
+            return False, conf
+    
+    def write_bdocn_save_gamepath_conf(self):
+        print("[BEGIN] write_bdocn_save_gamepath_conf >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
+        path = self.save_path_entry.get()
+        save_conf.save_bdo_gamepath(path)
+
+    def read_bdocn_save_confpath_conf(self):
+        print("[BEGIN] read_bdocn_save_confpath_conf >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
+        bdocn_conf_dir = save_conf.save_bdocn_conf_dir()
+        bdo_confpath = (bdocn_conf_dir + r'/bdocn_confpath.txt')
+        if Path(bdo_confpath).is_file() is True and Path(bdo_confpath).stat().st_size != 0:
+            f = open(bdo_confpath)
+            conf = f.read()
+            f.close()
+            return True, conf
+        else:
+            conf = ''
+            return False, conf
+
+    def write_bdocn_save_confpath_conf(self):
+        print("[BEGIN] write_bdocn_save_confpath_conf >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
+        path = self.conf_path_entry.get()
+        save_conf.save_bdo_confpath(path)
 
     def check_loc_hash(self):
         print("[BEGIN] check_loc_hash >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
@@ -380,41 +460,73 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         print("[BEGIN] start_button >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
         a = askyesno('提示', '要执行此操作吗')
 
-        if a == True and self.conf_path_entry.get() != '':
-            # 用户自选配置文件路径
-            conf_dir = self.check_bdo_conf_path()
-            print("start_button: selected a custom BDO conf path")
-            if self.check_bdo_conf_path() != False:
-                check_launcher.change_bdo_font_conf(conf_dir)
-        elif a == True and self.conf_path_entry.get() == '':
-            self.check_bdo_conf_empty_path()
+        while True:
+            if self.conf_path_entry.get() == '' and self.check_bdo_conf_empty_path() is False or self.check_bdo_conf_path() is False:
+                print("[ERROR] start_button: self.check_bdo_conf_empty_path() is False or self.check_bdo_conf_path() is False")
+                break
+            elif self.conf_path_entry.get() != '' and self.check_bdo_conf_path() is False:
+                print("[ERROR] start_button: self.conf_path_entry.get() != '' and self.check_bdo_conf_path() is False")
+                break
+            elif self.conf_path_entry.get() != '':
+                # 用户自选配置文件路径
+                self.check_bdo_conf_path()
+                print("start_button: using selected custom BDO conf path")
+            elif self.conf_path_entry.get() == '':
+                self.check_bdo_conf_empty_path()
+            else:
+                continue
 
-        if self.check_bdo_dir() == False or self.check_bdo_conf_empty_path() == False or self.check_bdo_conf_path() == False:
-            pass
-        elif a == True and str(self.hmVar.get()) == '4':
-            self.process_panel_button_1.config(state='disabled')
-            self.hh_method(4)
-            self.process_panel_button_1.config(state='normal')
-        elif a == True and str(self.dmVar.get()) == '1':
-            self.process_panel_button_1.config(state='disabled')
-            if str(self.hmVar.get()) == '1':
-                self.hh_method(1)
-            elif str(self.hmVar.get()) == '2':
-                self.hh_method(2)
-            elif str(self.hmVar.get()) == '3':
-                self.hh_method(3)
-            self.process_panel_button_1.config(state='normal')
-        elif a == True and str(self.dmVar.get()) == '2':
-            self.process_panel_button_1.config(state='disabled')
-            if str(self.hmVar.get()) == '1':
-                self.hh_method(11)
-            elif str(self.hmVar.get()) == '2':
-                self.hh_method(12)
-            elif str(self.hmVar.get()) == '3':
-                self.hh_method(13)
-            self.process_panel_button_1.config(state='normal')
-        else:
-            self.process_panel_button_1.config(state='normal')
+            if self.check_bdo_dir() is False:
+                print("[ERROR] start_button: self.check_bdo_dir() is False")
+                break
+            elif a == True and str(self.hmVar.get()) == '4':
+                self.process_panel_button_1.config(state='disabled')
+                self.hh_method(4)
+                self.process_panel_button_1.config(state='normal')
+                self.write_bdocn_save_gamepath_conf()
+                self.write_bdocn_save_confpath_conf()
+                break
+            elif a == True and str(self.dmVar.get()) == '1':
+                self.process_panel_button_1.config(state='disabled')
+                if str(self.hmVar.get()) == '1':
+                    self.hh_method(1)
+                elif str(self.hmVar.get()) == '2':
+                    self.hh_method(2)
+                elif str(self.hmVar.get()) == '3':
+                    self.hh_method(3)
+                self.process_panel_button_1.config(state='normal')
+                self.write_bdocn_save_gamepath_conf()
+                self.write_bdocn_save_confpath_conf()
+                break
+            elif a == True and str(self.dmVar.get()) == '2':
+                self.process_panel_button_1.config(state='disabled')
+                if str(self.hmVar.get()) == '1':
+                    self.hh_method(11)
+                elif str(self.hmVar.get()) == '2':
+                    self.hh_method(12)
+                elif str(self.hmVar.get()) == '3':
+                    self.hh_method(13)
+                self.process_panel_button_1.config(state='normal')
+                self.write_bdocn_save_gamepath_conf()
+                self.write_bdocn_save_confpath_conf()
+                break
+            else:
+                self.process_panel_button_1.config(state='normal')
+                break
 
     def run(self):
             self.mainwindow.mainloop()
+
+"""
+if __name__ == '__main__':
+    import tkinter as tk
+    root = tk.Tk()
+    root.title('window title')
+    # 设置窗口大小
+    #root.geometry('600x600')
+    # 防止窗口调整大小
+    root.resizable(False, False)
+    app = Application(root)
+
+    app.bdocn_save_gamepath_conf()
+"""
