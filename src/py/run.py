@@ -1,4 +1,4 @@
-# @Time    : 2021/03/14
+# @Time    : 2021/03/15
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -22,7 +22,7 @@ if ask_run_bdo == True:
 else:
     showinfo('提示', '请先运行黑沙的启动器并等待其更新完毕后再执行汉化任务!')
 
-if check_new.get_client_version() != '2021031400':
+if check_new.get_client_version() != '2021031402':
     a = askyesno('提示', '有新版本的客户端，是否查看？')
     if a == True:
         app.hyperlinks(2)
