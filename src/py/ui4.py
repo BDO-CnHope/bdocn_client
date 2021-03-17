@@ -4,30 +4,23 @@
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
 
 import tkinter as tk
-from tkinter.messagebox import showinfo,askyesno,showwarning
-from tkinter.filedialog import askdirectory,askopenfilename
-from tkinter.scrolledtext import ScrolledText
-from shutil import copy, rmtree
+from tkinter.messagebox import showinfo,askyesno
 from pathlib import Path
-from tempfile import mkdtemp
-from datetime import datetime
-import webbrowser
-import joinfiles
-import download
-import thread_func
-import check_new
-import check_launcher
-import save_conf
 
-time_stamp = datetime.now()
+from time_template import time_template
+from hyperlinks import hyperlinks
+from thread_function import thread_it
+import save_bdocn_conf
+import select_bdo_game_dir
+import select_bdo_game_conf
+import execute_list
+import replace_text
 
 class Application:
     def __init__(self, master=None):
-        # main frame
         self.main_window = tk.Frame(master)
         self.main_window.config(background='#f2f2f2', height='600', width='600')
         self.main_window.pack(side='top')
-        # left panel top
         self.left_panel_top = tk.LabelFrame(self.main_window)
         self.left_panel_top.config(font='{Microsoft YaHei} 12 {bold}', foreground='#ff0000', height='200', relief='groove', text='注意事项')
         self.left_panel_top.config(width='200')
@@ -43,7 +36,6 @@ class Application:
         self.left_top_panel_text.insert('0.0', _text_)
         self.left_top_panel_text.configure(state='disabled')
         self.left_top_panel_text.place(anchor='nw', height='120', width='280', x='0', y='0')
-        # left panle center
         self.left_panel_body = tk.LabelFrame(self.main_window)
         self.left_panel_body_text = tk.Text(self.left_panel_body)
         self.left_panel_body_text.config(background='#f2f2f2', font='{Microsoft YaHei} 10 {}', height='10', relief='flat')
@@ -71,7 +63,6 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.left_panel_body_text.insert('0.0', client_notice)
         self.left_panel_body_text.configure(state='disabled')
         self.left_panel_body_text.place(anchor='nw', height='340', width='280', x='0', y='0')
-        # left panel bottom
         self.left_panel_bottom = tk.LabelFrame(self.main_window)
         self.left_panel_bottom.config(background='#f2f2f2', font='{Microsoft YaHei} 10 {bold}', relief='groove')
         self.left_panel_bottom.config(text='来源', width='200')
@@ -80,7 +71,7 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.left_panel_bottom_text.config(background='#f2f2f2', font='{Microsoft YaHei} 8 {}', relief='flat')
         self.left_panel_bottom_text.config(state='disabled', width='50')
         _text_ = ''' Create by Naunter
- Version:    2021031402
+ Version:    2021031403
  Date:   2021/03/15
 '''
         self.left_panel_bottom_text.configure(state='normal')
@@ -90,59 +81,56 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.left_panel_bottom_button_1 = tk.Button(self.left_panel_bottom)
         self.left_panel_bottom_button_1.config(text='Github')
         self.left_panel_bottom_button_1.place(anchor='nw', height='26', width='80', x='200', y='0')
-        self.left_panel_bottom_button_1.configure(command=lambda :thread_func.thread_it(self.hyperlinks(1)))
+        self.left_panel_bottom_button_1.configure(command=lambda :thread_it(self.hyperlinks(1)))
         self.left_panel_bottom_button_2 = tk.Button(self.left_panel_bottom)
         self.left_panel_bottom_button_2.config(text='Gitee')
         self.left_panel_bottom_button_2.place(anchor='nw', height='26', width='80', x='200', y='30')
-        self.left_panel_bottom_button_2.configure(command=lambda :thread_func.thread_it(self.hyperlinks(2)))
-        # right top, area 1
+        self.left_panel_bottom_button_2.configure(command=lambda :thread_it(self.hyperlinks(2)))
         self.save_path = tk.LabelFrame(self.main_window)
         self.save_path.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#0000ff', height='200', relief='groove')
         self.save_path.config(text='1. 文件保存路径', width='200')
-        self.save_path.place(anchor='nw', height='120', width='300', x='300', y='0')
+        self.save_path.place(anchor='nw', height='140', width='300', x='300', y='0')
         self.save_path_entry_label = tk.Label(self.save_path)
-        self.save_path_entry_label.configure(text='请选择黑沙的游戏根目录 :')
-        self.save_path_entry_label.place(anchor='nw', height='15', x='3', y='0')
+        self.save_path_entry_label.configure(text='请选择黑沙的游戏根目录:')
+        self.save_path_entry_label.place(anchor='nw', height='15', x='3', y='3')
         self.save_path_entry = tk.Entry(self.save_path)
         self.save_path_entry.config(font='{Microsoft YaHei} 10 {}')
         self.save_path_entry_text = ''''''
         self.save_path_entry.delete('0', 'end')
         self.save_path_entry.insert('0', self.save_path_entry_text)
-        self.save_path_entry.place(anchor='nw', height='20', width='210', x='5', y='20')
+        self.save_path_entry.place(anchor='nw', height='25', width='210', x='5', y='23')
         self.save_path_button = tk.Button(self.save_path)
-        self.save_path_button.config(font='{Microsoft YaHei} 9 {}', text='打开...')
-        self.save_path_button.configure(command=lambda :thread_func.thread_it(self.select_path))
-        self.save_path_button.place(anchor='nw', height='25', width='70', x='220', y='17')
+        self.save_path_button.config(font='{Microsoft YaHei} 9 {}', text='打开目录...')
+        self.save_path_button.configure(command=lambda :thread_it(self.select_bdo_game_dir))
+        self.save_path_button.place(anchor='nw', height='30', width='70', x='220', y='20')
         self.conf_path_entry_label = tk.Label(self.save_path)
-        self.conf_path_entry_label.configure(text='手动选择黑沙的配置文件目录 (默认会自动选择) :')
-        self.conf_path_entry_label.place(anchor='nw', height='15', x='3', y='45')
+        self.conf_path_entry_label.configure(text='如自动匹配失败, 请手动选择黑沙的配置文件:')
+        self.conf_path_entry_label.place(anchor='nw', height='15', x='3', y='60')
         self.conf_path_entry = tk.Entry(self.save_path)
         self.conf_path_entry.config(font='{Microsoft YaHei} 10 {}')
         self.conf_path_entry_text = ''''''
         self.conf_path_entry.delete('0', 'end')
         self.conf_path_entry.insert('0', self.conf_path_entry_text)
-        self.conf_path_entry.place(anchor='nw', height='20', width='210', x='5', y='65')
+        self.conf_path_entry.place(anchor='nw', height='25', width='210', x='5', y='80')
         self.conf_path_button = tk.Button(self.save_path)
-        self.conf_path_button.config(font='{Microsoft YaHei} 9 {}', text='打开...')
-        self.conf_path_button.configure(command=lambda :thread_func.thread_it(self.select_conf_path))
-        self.conf_path_button.place(anchor='nw', height='25', width='70', x='220', y='63')
-        # right area 2, select download method
+        self.conf_path_button.config(font='{Microsoft YaHei} 9 {}', text='打开文件...')
+        self.conf_path_button.configure(command=lambda :thread_it(self.select_bdo_conf_path))
+        self.conf_path_button.place(anchor='nw', height='30', width='70', x='220', y='77')
         self.download_method = tk.LabelFrame(self.main_window)
         self.download_method.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#004080', height='200', relief='groove')
         self.download_method.config(text='2. 汉化包下载线路', width='200')
-        self.download_method.place(anchor='nw', height='60', width='300', x='300', y='120')
-        self.dmVar = tk.StringVar(value="1")
+        self.download_method.place(anchor='nw', height='60', width='300', x='300', y='150')
+        self.dmVar = tk.StringVar(value='1')
         self.download_method_radiobutton_1 = tk.Radiobutton(self.download_method)
-        self.download_method_radiobutton_1.config(font='{Microsoft YaHei} 12 {}', text='海外下载', value="1", variable=self.dmVar)
+        self.download_method_radiobutton_1.config(font='{Microsoft YaHei} 12 {}', text='海外下载', value='1', variable=self.dmVar)
         self.download_method_radiobutton_1.place(anchor='nw', x='0', y='0')
         self.download_method_radiobutton_2 = tk.Radiobutton(self.download_method)
-        self.download_method_radiobutton_2.config(font='{Microsoft YaHei} 12 {}', text='国内下载', value="2", variable=self.dmVar)
+        self.download_method_radiobutton_2.config(font='{Microsoft YaHei} 12 {}', text='国内下载', value='2', variable=self.dmVar)
         self.download_method_radiobutton_2.place(anchor='nw', x='180', y='0')
-        # right area 3, select hanhua method
         self.hanhua_method = tk.LabelFrame(self.main_window)
         self.hanhua_method.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#008080', height='200', text='3. 汉化方式')
         self.hanhua_method.config(width='200')
-        self.hanhua_method.place(anchor='nw', height='220', width='300', x='300', y='180')
+        self.hanhua_method.place(anchor='nw', height='220', width='300', x='300', y='220')
         self.hmVar=tk.IntVar()
         self.hmVar.set(1)
         self.hanhua_method_radiobutton_1 = tk.Radiobutton(self.hanhua_method)
@@ -157,376 +145,181 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.hanhua_method_radiobutton_4 = tk.Radiobutton(self.hanhua_method)
         self.hanhua_method_radiobutton_4.config(font='{Microsoft YaHei} 12 {}', text='清除汉化，恢复英文', variable=self.hmVar, value='4')
         self.hanhua_method_radiobutton_4.place(anchor='nw', x='0', y='120')
-        self.usefontVar = tk.StringVar(value="1")
+        self.usefontVar = tk.StringVar(value='1')
         self.no_font_change = tk.Checkbutton(self.hanhua_method)
-        self.no_font_change.configure(font='{Microsoft YaHei} 9 {}', relief='flat', text='不更新或覆盖现有的汉化字体(只对简繁汉化有效)', variable=self.usefontVar)
+        self.no_font_change.configure(font='{Microsoft YaHei} 9 {}', relief='flat', text='不覆盖现有的汉化字体 (第一次汉化请取消勾选)', variable=self.usefontVar)
         self.no_font_change.place(anchor='nw', x='0', y='155')
-        # right area 4
         self.process_panel = tk.LabelFrame(self.main_window)
         self.process_panel.config(font='{Microsoft YaHei} 12 {bold}', foreground='#008000', height='200', text='4. 操作面板', width='200')
-        self.process_panel.place(anchor='nw', height='200', width='300', x='300', y='400')
+        self.process_panel.place(anchor='nw', height='150', width='300', x='300', y='450')
         self.process_panel_button_1 = tk.Button(self.process_panel)
-        self.process_panel_button_1.config(font='{Microsoft YaHei} 12 {bold}', background='#008000', foreground='white', text='开始汉化')
-        self.process_panel_button_1.configure(command=lambda :thread_func.thread_it(self.start_button))
-        self.process_panel_button_1.place(anchor='nw', height='50', width='285', x='5', y='0')
-        self.process_panel_progresstext = ScrolledText(self.process_panel)
-        self.process_panel_progresstext.config(font='{Microsoft YaHei} 10 {}', relief='groove', state='disabled')
-        self.process_panel_progresstext.insert('0.0', '...\n')
-        self.process_panel_progresstext.place(anchor='nw', height='110', width='285', x='5', y='60')
-
+        self.process_panel_button_1.config(font='{Microsoft YaHei} 12 {bold}', background='#008000', foreground='white', text='点击执行汉化')
+        self.process_panel_button_1.configure(command=lambda :thread_it(self.start_button))
+        self.process_panel_button_1.place(anchor='nw', height='100', width='285', x='5', y='10')
+ 
         self.mainwindow = self.main_window
 
-    # 将日志输出到输出面板
-    def insert_text(self, content):
-        print("[BEGIN] insert_text >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        self.process_panel_progresstext.config(state='normal')
-        self.process_panel_progresstext.insert(tk.END, str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + '\n')
-        self.process_panel_progresstext.insert(tk.END, content)
-        self.process_panel_progresstext.config(state='disabled')
-        print(str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + ' inserted output: '+ content)
-
-    # 超链接
     def hyperlinks(self, var):
-        if var == 1 :
-            webbrowser.open_new(r"https://github.com/BDO-CnHope/bdocn_client")
-        elif var == 2:
-            webbrowser.open_new(r"https://gitee.com/bdo-cnhope/bdocn_client")
+        time_template()
+        print("ui4.py >>> def hyperlinks(self, var)")
+        hyperlinks(var)
 
-    # 选择黑沙游戏目录
-    def select_path(self):
-        print("[BEGIN] select_path >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        user_home = str(Path.home())
-        a, b = self.read_bdocn_save_gamepath_conf()
-        if self.save_path_entry.get() == '' and a is True:
-            todir = b
-            print('select_path: todir: '+str(todir))
-        else:
-            todir = user_home
-        
-        open_path = askdirectory(title="请选择黑沙的游戏根目录", initialdir = todir)
+    def lock_start_button(self):
+        self.process_panel_button_1.config(state='disabled')
+
+    def unlock_start_button(self):
+        self.process_panel_button_1.config(state='normal')
+
+    def insert_save_path_entry(self, path):
         self.save_path_entry.delete('0', 'end')
-        self.save_path_entry.insert('0', open_path)
-        self.insert_text('选择了目录: \n'+open_path+'\n')
-
-    def check_bdo_dir(self):
-        print("[BEGIN] check_bdo_dir >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        a, b = self.read_bdocn_save_gamepath_conf()
-        if self.save_path_entry.get() == '' and a is True:
-            todir = b
-            self.save_path_entry.insert('0', todir)
-            print('check_bdo_dir: todir: '+str(todir))
-        else:
-            todir = self.save_path_entry.get()
-
-        ads_dir = todir + r'/ads/'
-        print('check_bdo_dir: ads_dir: '+str(ads_dir))
-        font_dir = todir + r'/prestringtable' + r'/font/'
-        print('check_bdo_dir: font_dir: '+str(font_dir))
-
-        if todir == '' or todir == self.save_path_entry_text:
-            showinfo('提示','你没有选择正确的目录! ')
-            self.insert_text('你没有选择正确的游戏目录! \n')
-            return False
-        elif not Path(ads_dir).is_dir():
-            showinfo('提示','没有找到语言文件目录(/ads)，请检查游戏完整性!')
-            self.insert_text('没有找到语言文件目录(/ads)，请检查游戏完整性! \n')
-            return False
-        elif not Path(font_dir).is_dir():
-            Path(font_dir).mkdir(parents=True, exist_ok=True)
-            return(font_dir)
-        elif Path(font_dir).is_dir():
-            return(font_dir)
-        else:
-            print('[ERROR] check_bdo_dir: else pass \n')
-            pass
-
-    # 选择黑沙配置目录
-    def select_conf_path(self):
-        print("[BEGIN] select_conf_path >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        user_home = str(Path.home())
-        a, b = self.read_bdocn_save_confpath_conf()
-        if self.conf_path_entry.get() == '' and a is True:
-            todir = b
-            print('select_conf_path: todir: '+str(todir))
-        else:
-            todir = user_home
-
-        open_path = askopenfilename(title="请选择黑沙配置文件(GameOption.txt)", initialdir = r'todir')
-        self.conf_path_entry.delete('0', 'end')
-        self.conf_path_entry.insert('0', open_path)
-        self.insert_text('选择了文件: \n'+open_path+'\n')
-
-    def check_bdo_conf_path(self):
-        print("[BEGIN] select_conf_path >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-
-        a, b = self.read_bdocn_save_confpath_conf()
-
-        if self.conf_path_entry.get() == '' and a is True:
-            todir = b
-            self.conf_path_entry.insert('0', todir)
-            print('check_bdo_conf_path: todir: '+str(todir))
-        else:
-            todir = self.conf_path_entry.get()
-
-        print('check_bdo_conf_path: conf_dir: ' + str(todir))
-
-        if Path(todir).is_file() or Path(todir).is_dir():
-            return(todir)
-        else:
-            print("[ERROR] check_bdo_conf_path: not Path(todir).is_file()")
-            showwarning('警告', '无法找到黑色沙漠的【配置文件】!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 请检查配置文件是否生成在当前用户的目录下，亦或是生成在了别的用户的目录下，比如管理员的用户目录。\n例子: C:/Users/你的用户名/Documents/Black Desert/GameOption.txt')
-            return False
-
-    def check_bdo_conf_empty_path(self):
-        # 检查BDO的配置文件(路径为空时)
-        print('check_bdo_conf_empty_path: check_launcher.no_bdo_conf_dir: ' + str(check_launcher.no_bdo_conf()))
-        print('check_bdo_conf_empty_path: check_launcher.no_bdo_conf: '+ str(check_launcher.no_bdo_conf()))
-
-        a, b = self.read_bdocn_save_confpath_conf()
-
-        if check_launcher.no_bdo_conf_dir() is True and a is False:
-            showwarning('警告', '无法找到黑色沙漠默认的【配置目录】!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 请检查配置文件是否生成在当前用户的目录下，亦或是生成在了别的用户的目录下，比如管理员的用户目录。\n例子: C:/Users/你的用户名/Documents/Black Desert/GameOption.txt \n\n3. 请确认黑沙的配置文件文件夹里面包含GameOption.txt这个文件')
-            return False
-        elif check_launcher.no_bdo_conf() is True and a is False:
-            showwarning('警告', '无法找到黑色沙漠默认的【配置文件】!!! 可能的原因和解决办法: \n\n1. 请先完整的运行一次游戏，让其生成游戏配置文件后再重新执行汉化 (请退出游戏后再执行汉化) \n\n2. 请检查配置文件是否生成在当前用户的目录下，亦或是生成在了别的用户的目录下，比如管理员的用户目录。\n例子: C:/Users/你的用户名/Documents/Black Desert/GameOption.txt')
-            return False
-        elif self.conf_path_entry.get() == '' and a is False:
-            conf_dir = ''
-            print("start_button: Selected a default BDO conf path")
-            check_launcher.change_bdo_font_conf(conf_dir)
-            return True
-        elif self.conf_path_entry.get() == '' and a is True:
-            conf_dir = b
-            print("start_button: use saved BDO conf path")
-            check_launcher.change_bdo_font_conf(conf_dir)
-            return True
-
-    def read_bdocn_save_gamepath_conf(self):
-        print("[BEGIN] read_bdocn_save_gamepath_conf >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        bdocn_conf_dir = save_conf.save_bdocn_conf_dir()
-        bdo_gamepath = (bdocn_conf_dir + r'/bdocn_gamepath.txt')
-        if Path(bdo_gamepath).is_file() is True and Path(bdo_gamepath).stat().st_size != 0:
-            f = open(bdo_gamepath)
-            conf = f.read()
-            f.close()
-            return True, conf
-        else:
-            conf = ''
-            return False, conf
+        self.save_path_entry.insert('0', path)
     
-    def write_bdocn_save_gamepath_conf(self):
-        print("[BEGIN] write_bdocn_save_gamepath_conf >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        path = self.save_path_entry.get()
-        save_conf.save_bdo_gamepath(path)
+    def select_bdo_game_dir(self):
+        time_template()
+        print("ui4.py >>> def user_select_bdo_game_dir(self)")
 
-    def read_bdocn_save_confpath_conf(self):
-        print("[BEGIN] read_bdocn_save_confpath_conf >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        bdocn_conf_dir = save_conf.save_bdocn_conf_dir()
-        bdo_confpath = (bdocn_conf_dir + r'/bdocn_confpath.txt')
-        if Path(bdo_confpath).is_file() is True and Path(bdo_confpath).stat().st_size != 0:
-            f = open(bdo_confpath)
-            conf = f.read()
-            f.close()
-            return True, conf
+        selected_dir = select_bdo_game_dir.select_dir()
+        print("ui4.py >>> def select_bdo_game_dir(self) >>> selected_dir: "+str(selected_dir))
+        self.insert_save_path_entry(selected_dir)
+
+    def output_bdo_game_dir(self):
+        time_template()
+        print("ui4.py >>> def output_bdo_game_dir(self)")
+
+        inserted_path = str(self.save_path_entry.get())
+        print("ui4.py >>> def output_bdo_game_dir(self) >>> inserted_path:"+str(inserted_path))
+
+        if select_bdo_game_dir.output_selected_bdo_game_dir(inserted_path) != False:
+            print("ui4.py >>> def output_bdo_game_dir(self) >>> inserted_path != False")
+            return inserted_path
         else:
-            conf = ''
-            return False, conf
+            self.save_path_entry.delete('0', 'end')
+            return False
 
-    def write_bdocn_save_confpath_conf(self):
-        print("[BEGIN] write_bdocn_save_confpath_conf >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        path = self.conf_path_entry.get()
-        save_conf.save_bdo_confpath(path)
+    def insert_conf_path_entry(self, path):
+        self.conf_path_entry.delete('0', 'end')
+        self.conf_path_entry.insert('0', path)
 
-    def check_loc_hash(self):
-        print("[BEGIN] check_loc_hash >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        todir = self.save_path_entry.get()
-        print("check_loc_hash: todir: " + todir)
-        ads_dir = todir + r'/ads/languagedata_en.loc'
-        print("check_loc_hash: ads_dir: " + ads_dir)
-        if Path(ads_dir).is_dir() or Path(ads_dir).is_file():
-            print("check_loc_hash: Found " + ads_dir)
-            return(check_new.get_hash(ads_dir))
+    def select_bdo_conf_path(self):
+        time_template()
+        print("ui4.py >>> def select_bdo_conf_path(self)")
+
+        selected_dir = select_bdo_game_conf.select_dir()
+        print("ui4.py >>> def select_bdo_conf_path(self) >>> selected_dir: "+str(selected_dir))
+        self.insert_conf_path_entry(selected_dir)
+
+    def output_bdo_conf_path(self):
+        time_template()
+        print("ui4.py >>> def output_bdo_game_dir(self)")
+
+        inserted_path = str(self.conf_path_entry.get())
+        print("ui4.py >>> def output_bdo_conf_path(self) >>> inserted_path:"+str(inserted_path))
+
+        if select_bdo_game_conf.check_conf_file(inserted_path) != False:
+            print("ui4.py >>> def output_bdo_conf_path(self) >>> inserted_path != False")
+            self.insert_conf_path_entry(inserted_path)
+            return inserted_path
         else:
-            print("check_loc_hash: Can not find " + ads_dir)
-            return None
-
-    def check_font_hash(self):
-        print("[BEGIN] check_font_hash >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
-        todir = self.save_path_entry.get()
-        print("check_loc_hash: todir: " + todir)
-        font_dir = todir + r'/prestringtable/font/pearl.ttf'
-        if Path(font_dir).is_dir() or Path(font_dir).is_file():
-            print("check_font_hash: Found " + font_dir)
-            return(check_new.get_hash(font_dir))
-        else:
-            print("check_font_hash: Can not find " + font_dir)
-            return None
-
-
-    def hh_method(self, num):
-        todir = self.save_path_entry.get()
-        font_dir = self.check_bdo_dir()
-
-        ads_dir = todir + r'/ads'
-        temp_loc_dir = mkdtemp(prefix='loc_temp_')
-        temp_font_dir = mkdtemp(prefix='font_temp_')
-        temp_bdocn_dir = mkdtemp(prefix='bdocn_temp_')
-
-        tw_loc = 'http://dn.blackdesert.com.tw/UploadData/ads/languagedata_tw.loc'
-        github_loc = 'https://github.com/BDO-CnHope/bdocn/raw/master/ads/languagedata_en.loc'
-        github_font = 'https://github.com/BDO-CnHope/bdocn/raw/master/prestringtable/font/pearl.ttf'
-        gitee_loc = 'https://gitee.com/bdo-cnhope/bdocn/tree/master/split/'
-        gitee_font = 'https://gitee.com/bdo-cnhope/bdocn/tree/master/split_font/'
-        en_loc = download.download_en_loc()
-        
-        if num == 1:
-            if check_new.get_loc_hash(1) != self.check_loc_hash():
-                self.insert_text('正在使用国外线路下载简体汉化语言包…… \n')
-                download.download_file(github_loc, ads_dir, 'languagedata_en.loc')
-                self.insert_text('简体汉化包已更新! \n')
-            else:
-                self.insert_text('简体汉化包已是最新的了! \n')   
-            if check_new.get_font_hash(1) != self.check_font_hash() and str(self.usefontVar.get()) != '1':
-                self.insert_text( '正在下载字体包…… \n')
-                download.download_file(github_font, font_dir, 'pearl.ttf')
-                self.insert_text('字体包已更新! \n')
-            else:
-                self.insert_text('字体包已是最新的了! \n')
-            showinfo('提示','汉化已完成！')
-        elif num == 2:
-            self.insert_text('正在下载繁体汉化语言包…… \n')
-            download.download_file(tw_loc, ads_dir, 'languagedata_en.loc')
-            self.insert_text('繁体汉化包已更新! \n')
-            if check_new.get_font_hash(1) != self.check_font_hash() and str(self.usefontVar.get()) != '1':
-                self.insert_text('正在下载字体包…… \n')
-                download.download_file(github_font, font_dir, 'pearl.ttf')
-                self.insert_text('字体包已更新! \n')
-            else:
-                self.insert_text('字体包已是最新的了! \n')
-            showinfo('提示','汉化已完成！')
-        elif num == 3:
-            if check_new.get_font_hash(1) != self.check_font_hash():
-                self.insert_text('正在下载字体包…… \n')
-                download.download_file(github_font, font_dir, 'pearl.ttf')
-                self.insert_text('字体包已更新! \n')
-            else:
-                self.insert_text('字体包已是最新的了! \n')
-            showinfo('提示','汉化已完成！')
-        elif num == 11:
-            if check_new.get_loc_hash(2) != self.check_loc_hash():
-                self.insert_text('正在使用国内线路下载简体汉化语言包…… \n')
-                download.download_split_files(gitee_loc, temp_loc_dir)
-                joinfiles.join_files(temp_loc_dir, ads_dir, 'languagedata_en.loc')
-                self.insert_text('简体汉化包已更新! \n')
-            else:
-                self.insert_text('简体汉化包已是最新的了! \n')
-            if check_new.get_font_hash(2) != self.check_font_hash() and str(self.usefontVar.get()) != '1':
-                self.insert_text('正在下载字体包…… \n')
-                download.download_split_files(gitee_font, temp_font_dir)
-                joinfiles.join_files(temp_font_dir, font_dir, 'pearl.ttf')
-                self.insert_text('字体包已更新! \n')
-            else:
-                self.insert_text('字体包已是最新的了! \n')
-            showinfo('提示','汉化已完成！')
-        elif num == 12:
-            self.insert_text('正在下载繁体汉化语言包…… \n')
-            download.download_file(tw_loc, ads_dir, 'languagedata_en.loc')
-            self.insert_text('繁体汉化包已更新! \n')
-            if check_new.get_font_hash(2) != self.check_font_hash() and str(self.usefontVar.get()) != '1':
-                self.insert_text('正在下载字体包…… \n')
-                download.download_split_files(gitee_font, temp_font_dir)
-                joinfiles.join_files(temp_font_dir, font_dir, 'pearl.ttf')
-                self.insert_text('字体包已更新! \n')
-            else:
-                self.insert_text('字体包已是最新的了! \n')
-            showinfo('提示','汉化已完成！')
-        elif num == 13:
-            if check_new.get_font_hash(2) != self.check_font_hash():
-                self.insert_text('正在下载字体包…… \n')
-                download.download_split_files(gitee_font, temp_font_dir)
-                joinfiles.join_files, (temp_font_dir, font_dir, 'pearl.ttf')
-                self.insert_text('字体包已更新! \n')
-            else:
-                self.insert_text('字体包已是最新的了! \n')
-            showinfo('提示','汉化已完成！')
-        elif num == 4:
-            self.insert_text('正在重新安装美服英语包…… \n')
-            download.download_file(en_loc, temp_bdocn_dir, 'languagedata_en.loc')
-            copy(temp_bdocn_dir  + r'/languagedata_en.loc', ads_dir)
-            self.insert_text('已恢复为美服英语! \n')
-            showinfo('提示','任务已完成！')
+            self.conf_path_entry.delete('0', 'end')
+            return False
 
     def start_button(self):
-        print("[BEGIN] start_button >>> " + str(time_stamp.strftime('%Y.%m.%d-%H:%M:%S')) + "\n")
+        time_template()
+        print("ui4.py >>> def start_button(self)")
+
+        dm = str(self.dmVar.get())
+        hm = str(self.hmVar.get())
+        fv = str(self.usefontVar.get())
+        print("ui4.py >>> def start_button(self):"+" dm: "+ dm + " hm: "+ hm)
         a = askyesno('提示', '要执行此操作吗')
 
-        while True:
-            if self.conf_path_entry.get() == '' and self.check_bdo_conf_empty_path() is False or self.check_bdo_conf_path() is False:
-                print("[ERROR] start_button: self.check_bdo_conf_empty_path() is False or self.check_bdo_conf_path() is False")
-                break
-            elif self.conf_path_entry.get() != '' and self.check_bdo_conf_path() is False:
-                print("[ERROR] start_button: self.conf_path_entry.get() != '' and self.check_bdo_conf_path() is False")
-                break
-            elif self.conf_path_entry.get() != '':
-                # 用户自选配置文件路径
-                self.check_bdo_conf_path()
-                print("start_button: using selected custom BDO conf path")
-            elif self.conf_path_entry.get() == '':
-                self.check_bdo_conf_empty_path()
-            else:
-                continue
+        def bdo_game_dir():
+            if a is True and self.output_bdo_game_dir() != False:
+                bdo_game_dir = self.output_bdo_game_dir()
+                print("bdo_game_dir: "+str(bdo_game_dir))
+                return bdo_game_dir
+            else: 
+                return False
 
-            if self.check_bdo_dir() is False:
-                print("[ERROR] start_button: self.check_bdo_dir() is False")
-                break
-            elif a == True and str(self.hmVar.get()) == '4':
-                self.process_panel_button_1.config(state='disabled')
-                self.hh_method(4)
-                self.process_panel_button_1.config(state='normal')
-                self.write_bdocn_save_gamepath_conf()
-                self.write_bdocn_save_confpath_conf()
-                break
-            elif a == True and str(self.dmVar.get()) == '1':
-                self.process_panel_button_1.config(state='disabled')
-                if str(self.hmVar.get()) == '1':
-                    self.hh_method(1)
-                elif str(self.hmVar.get()) == '2':
-                    self.hh_method(2)
-                elif str(self.hmVar.get()) == '3':
-                    self.hh_method(3)
-                self.process_panel_button_1.config(state='normal')
-                self.write_bdocn_save_gamepath_conf()
-                self.write_bdocn_save_confpath_conf()
-                break
-            elif a == True and str(self.dmVar.get()) == '2':
-                self.process_panel_button_1.config(state='disabled')
-                if str(self.hmVar.get()) == '1':
-                    self.hh_method(11)
-                elif str(self.hmVar.get()) == '2':
-                    self.hh_method(12)
-                elif str(self.hmVar.get()) == '3':
-                    self.hh_method(13)
-                self.process_panel_button_1.config(state='normal')
-                self.write_bdocn_save_gamepath_conf()
-                self.write_bdocn_save_confpath_conf()
-                break
+        def bdo_conf_path():
+            if a is True and self.output_bdo_conf_path() != False:
+                bdo_conf_path = self.output_bdo_conf_path()
+                print("bdo_game_dir: "+str(bdo_conf_path))
+                return bdo_conf_path
+            else: 
+                return False
+
+        if (bdo_game_dir() and bdo_conf_path()) != False:
+            bdo_game_dir = str(bdo_game_dir())
+            bdo_conf_path = str(bdo_conf_path())
+            if a is True and dm == '1':
+                print("ui4.py >>> if a is True and dm == 1")
+                if hm == '1':
+                    print("ui4.py >>> def start_button(self):1 :1")
+                    self.lock_start_button()
+                    execute_list.dm1_hm1(bdo_game_dir,fv)
+                    self.unlock_start_button()
+                    showinfo('提示','汉化已完成！')
+                elif hm == '2':
+                    print("ui4.py >>> def start_button(self):1 :2")
+                    self.lock_start_button()
+                    execute_list.dm1_hm2(bdo_game_dir,fv)
+                    self.unlock_start_button()
+                    showinfo('提示','汉化已完成！')
+                elif hm == '3':
+                    print("ui4.py >>> def start_button(self):1 :3")
+                    self.lock_start_button()
+                    execute_list.dm1_hm3(bdo_game_dir,fv)
+                    self.unlock_start_button()
+                    showinfo('提示','字体已更新！')
+                elif hm == '4':
+                    print("ui4.py >>> def start_button(self):1 :4")
+                    self.lock_start_button()
+                    execute_list.dm1_hm4(bdo_game_dir,fv)
+                    self.unlock_start_button()
+                    showinfo('提示','已恢复为英语！')
+                else:
+                    pass
+
+            if a is True and dm == '2':
+                print("ui4.py >>> while a is True and dm == 2")
+                if hm == '1':
+                    print("ui4.py >>> def start_button(self):2 :1")
+                    self.lock_start_button()
+                    execute_list.dm2_hm1(bdo_game_dir,fv)
+                    self.unlock_start_button()
+                    showinfo('提示','汉化已完成！')
+                elif hm == '2':
+                    print("ui4.py >>> def start_button(self):2 :2")
+                    self.lock_start_button()
+                    execute_list.dm2_hm2(bdo_game_dir,fv)
+                    self.unlock_start_button()
+                    showinfo('提示','汉化已完成！')
+                elif hm == '3':
+                    print("ui4.py >>> def start_button(self):2 :3")
+                    self.lock_start_button()
+                    execute_list.dm2_hm3(bdo_game_dir,fv)
+                    self.unlock_start_button()
+                    showinfo('提示','字体已更新！')
+                elif hm == '4':
+                    print("ui4.py >>> def start_button(self):2 :4")
+                    self.lock_start_button()
+                    execute_list.dm2_hm4(bdo_game_dir,fv)
+                    self.unlock_start_button()
+                    showinfo('提示','已恢复为英语！')
+                else:
+                    pass
+
+            replace_text.change_ui_font(bdo_conf_path)
+
+            if Path(save_bdocn_conf.create_bdocn_conf_dir()).is_dir() is True:
+                print("ui4.py >>> Path(save_bdocn_conf.create_bdocn_conf_dir()).is_dir() is: " + str(save_bdocn_conf.create_bdocn_conf_dir))
+                save_bdocn_conf.save_bdo_gamepath(bdo_game_dir)
+                save_bdocn_conf.save_bdo_confpath(bdo_conf_path)
             else:
-                self.process_panel_button_1.config(state='normal')
-                break
+                pass
 
     def run(self):
-            self.mainwindow.mainloop()
-
-"""
-if __name__ == '__main__':
-    import tkinter as tk
-    root = tk.Tk()
-    root.title('window title')
-    # 设置窗口大小
-    #root.geometry('600x600')
-    # 防止窗口调整大小
-    root.resizable(False, False)
-    app = Application(root)
-
-    app.bdocn_save_gamepath_conf()
-"""
+        time_template()
+        print("ui4.py >>> def run(self)")
+        self.mainwindow.mainloop()
