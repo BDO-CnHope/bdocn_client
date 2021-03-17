@@ -19,5 +19,6 @@ jobs:
         dst: gitee/bdo-cnhope
         dst_key: ${{ secrets.BDOCN_CLIENT_KEY }}
         dst_token:  ${{ secrets.BDOCN_CLIENT_TOKEN }}
+        clone_style: "ssh"
         force_update: true
         white_list: "bdocn_client"
