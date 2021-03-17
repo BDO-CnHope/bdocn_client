@@ -31,25 +31,6 @@
 更新版本: 2021031403
 - 详细请看 [#7](https://github.com/BDO-CnHope/bdocn_client/issues/7)
 
-### 20210314
-更新版本: 2021031400
-- 修复了版本2021031200的各种问题 [#5](https://github.com/BDO-CnHope/bdocn_client/issues/5)
-
-### 20210313
-- 更新版本: 2021031200
-- 修复了汉化文字显示问题[issue #3](https://github.com/BDO-CnHope/bdocn_client/issues/3)
-- 修复了英语文件的位置
-- 添加功能，允许steam的用户在开启汉化工具同时启动steam的黑沙
-- 修正了一些其它的错误和问题
-- 已知但还未解决的问题(有时间再搞，或者等大佬们提出解决办法，先咕了)：
-  - 因为新版本的黑沙调用了新的启动器，导致每次启动黑沙时，启动器都会自动检查游戏文件并修复/更新不匹配的文件，导致已汉化了的语言包每次都会被启动器替换。
-  - 所以暂行的解决办法就是先运行黑沙的启动器，然后等启动器扫描和更新完后，再执行汉化。
-
-### 20210311
-- 已知问题: 由于黑沙更新了版本（运营商更替)的原因，旧版本的很多地方在新版本黑纱里都被修改了，主要原因就是汉化字体显示错误[issue #3](https://github.com/BDO-CnHope/bdocn_client/issues/3)
-  - 感谢@Rokker提出了一个临时的解决办法, 可到这里查看：https://github.com/BDO-CnHope/bdocn_client/issues/3#issuecomment-796784987
-  - 但注意要先运行黑沙的启动器后，在保持启动器运行的状态下，再执行汉化
-
 ### 20210206
 - 添加新功能: 不覆盖现有字体文件. [issue #2](https://github.com/BDO-CnHope/bdocn_client/issues/2)
 
