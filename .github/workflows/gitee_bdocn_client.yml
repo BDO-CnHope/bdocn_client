@@ -15,9 +15,9 @@ jobs:
     - name: Mirror the Github organization repos to Gitee.
       uses:  Yikun/hub-mirror-action@master
       with:
-        src: github/BDO-CnHope/
-        dst: gitee/bdo-cnhope/
+        src: github/BDO-CnHope
+        dst: gitee/bdo-cnhope
         dst_key: ${{ secrets.BDOCN_CLIENT_KEY }}
         dst_token:  ${{ secrets.BDOCN_CLIENT_TOKEN }}
         force_update: true
-        static_list: "bdocn_client"
+        white_list: "bdocn_client"
