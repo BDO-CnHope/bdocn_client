@@ -3,7 +3,7 @@ name: Gitee repos mirror periodic job
 on:
   #schedule:
   #- cron:  '0 7 * * *'
-  workflow_dispatch:
+  #workflow_dispatch:
    push:
     branches:
     - master
@@ -19,4 +19,5 @@ jobs:
         dst: gitee/bdo-cnhope
         dst_key: ${{ secrets.BDOCN_CLIENT_KEY }}
         dst_token:  ${{ secrets.BDOCN_CLIENT_TOKEN }}
+        force_update: true
         white_list: "bdocn_client"
