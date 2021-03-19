@@ -26,8 +26,8 @@
 3. https://github.com/BDO-CnHope/bdocn_client/tree/main/src/ps
 
 # Update
-### 20210317
-更新版本: 2021031403
+### 20210318
+更新版本: 2021031404
 - 详细请看 [#7](https://github.com/BDO-CnHope/bdocn_client/issues/7)
 
 ### 20210206
