@@ -26,9 +26,11 @@
 3. https://github.com/BDO-CnHope/bdocn_client/tree/main/src/ps
 
 # Update
-### 20210318
+### 20210319
 更新版本: 2021031404
-- 详细请看 [#7](https://github.com/BDO-CnHope/bdocn_client/issues/7)
+- 版本详细请看 [#7](https://github.com/BDO-CnHope/bdocn_client/issues/7)
+- 应B站粉丝观众要求，做了个台服繁转简的脚本，功能以后有时间再加入本体(咕)
+  - [下载脚本](https://raw.githubusercontent.com/BDO-CnHope/bdocn_client/main/%E5%8F%B0%E6%9C%8D%E7%B9%81%E8%BD%AC%E7%AE%80.bat)
 
 ### 20210206
 - 添加新功能: 不覆盖现有字体文件. [issue #2](https://github.com/BDO-CnHope/bdocn_client/issues/2)
