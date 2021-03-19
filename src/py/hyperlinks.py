@@ -1,4 +1,4 @@
-# @Time    : 2021/03/15
+# @Time    : 2021/03/18
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -14,4 +14,4 @@ def hyperlinks(var):
         open_new(r"https://github.com/BDO-CnHope/bdocn_client")
     elif var == 2:
         print("hyperlinks.py >>> def hyperlinks(var): var: " + str(var))
-        open_new(r"https://gitee.com/bdo-cnhope/bdocn_client")
+        open_new(r"https://www.bilibili.com/video/BV1yf4y1s75B")

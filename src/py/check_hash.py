@@ -1,4 +1,4 @@
-# @Time    : 2021/03/15
+# @Time    : 2021/03/18
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -21,7 +21,7 @@ def get_online_hash(url):
     opener.addheaders = [('User-agent', user_agent)]
     install_opener(opener)
     try:
-        a = urlopen(url, timeout=5)
+        a = urlopen(url, timeout=10)
     except:
         print("check_hash.py >>> def get_online_hash(url): something wrong, maybe timeout")
         showinfo('get_online_hash','获取文件Hash超时，请重试！')
@@ -72,25 +72,46 @@ def get_gitee_font_hash():
         a_hash = False
     return a_hash
 
-def get_github_loc_hash():
+def get_github_loc_cn_hash():
     time_template()
-    print("check_hash.py >>> def get_github_font_hash()")
-    url = 'https://github.com/BDO-CnHope/bdocn/raw/master/CHECK/LOC_SHA256'
+    print("check_hash.py >>> def get_github_loc_cn_hash()")
+    url = 'https://github.com/BDO-CnHope/bdocn/raw/master/CHECK/LOC_CN_SHA256'
     if get_online_hash(url) != False:
         a_hash = get_online_hash(url)
-        print("check_hash.py >>> def get_github_loc_hash(): a_hash: "+str(a_hash))
+        print("check_hash.py >>> def get_github_loc_cn_hash(): a_hash: "+str(a_hash))
     else:
         a_hash = False
     return a_hash
 
-def get_gitee_loc_hash():
+def get_gitee_loc_cn_hash():
     time_template()
-    print("check_hash.py >>> def get_github_font_hash()")
-    url = 'https://gitee.com/bdo-cnhope/bdocn/raw/master/CHECK/LOC_SHA256'
+    print("check_hash.py >>> def get_gitee_loc_cn_hash()")
+    url = 'https://gitee.com/bdo-cnhope/bdocn/raw/master/CHECK/LOC_CN_SHA256'
     if get_online_hash(url) != False:
         a_hash = get_online_hash(url)
-        print("check_hash.py >>> def get_gitee_loc_hash(): a_hash: "+str(a_hash))
+        print("check_hash.py >>> def get_gitee_loc_cn_hash(): a_hash: "+str(a_hash))
     else:
         a_hash = False
     return a_hash
 
+def get_github_loc_tw_hash():
+    time_template()
+    print("check_hash.py >>> def get_github_loc_tw_hash()")
+    url = 'https://github.com/BDO-CnHope/bdocn/raw/master/CHECK/LOC_TW_SHA256'
+    if get_online_hash(url) != False:
+        a_hash = get_online_hash(url)
+        print("check_hash.py >>> def get_github_loc_tw_hash(): a_hash: "+str(a_hash))
+    else:
+        a_hash = False
+    return a_hash
+
+def get_gitee_loc_tw_hash():
+    time_template()
+    print("check_hash.py >>> def get_gitee_loc_tw_hash()")
+    url = 'https://gitee.com/bdo-cnhope/bdocn/raw/master/CHECK/LOC_TW_SHA256'
+    if get_online_hash(url) != False:
+        a_hash = get_online_hash(url)
+        print("check_hash.py >>> def get_gitee_loc_tw_hash(): a_hash: "+str(a_hash))
+    else:
+        a_hash = False
+    return a_hash

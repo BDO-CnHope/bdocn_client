@@ -1,4 +1,4 @@
-# @Time    : 2021/03/15
+# @Time    : 2021/03/18
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -18,7 +18,7 @@ def download_file(url, todir, tofilename):
     time_template()
     print("download.py >>> download_file(url, todir, tofilename):" + " url: " + str(url) + " todir: " + str(todir) + " tofilename: " + str(tofilename))
     
-    timeout(5)
+    timeout(10)
     path = todir + r'/' + tofilename
     print("download.py >>> download_file(url, todir, tofilename): path: " + str(path))
     opener = build_opener()
@@ -29,6 +29,8 @@ def download_file(url, todir, tofilename):
     except:
         print("download.py >>> download_file(url, todir, tofilename) >>> something wrong, maybe timeout")
         showinfo('download_file()','文件下载超时，请重试！')
+    else:
+        pass
 
 def download_split_files(url, raw_url, todir):
     time_template()
@@ -36,11 +38,13 @@ def download_split_files(url, raw_url, todir):
     header = {"User-Agent":user_agent}
     add_header = Request(url, headers=header)
     try:
-        dl_link = urlopen(add_header, timeout=5)
+        dl_link = urlopen(add_header, timeout=10)
     except:
         print("download.py >>> download_split_files(url, raw_url, todir) >>> something wrong, maybe timeout")
         showinfo('download_split_files()','分块文件下载超时，请重试！')
         dl_link = False
+    else:
+        pass
 
     if dl_link != False:
         data = dl_link.read().decode('utf-8')
@@ -68,7 +72,14 @@ def download_split_files(url, raw_url, todir):
 def download_github_loc_cn(todir):
     time_template()
     print("download.py >>> def download_github_loc_cn(todir) >>> todir: " + str(todir))
-    url = "https://github.com/BDO-CnHope/bdocn/raw/master/ads/languagedata_en.loc"
+    url = "https://github.com/BDO-CnHope/bdocn/raw/master/ads/languagedata_cn.loc"
+    tofilename = "languagedata_en.loc"
+    download_file(url, todir, tofilename)
+
+def download_github_loc_tw(todir):
+    time_template()
+    print("download.py >>> def download_loc_tw(todir) >>> todir: " + str(todir))
+    url = "https://github.com/BDO-CnHope/bdocn/raw/master/ads/languagedata_tw.loc"
     tofilename = "languagedata_en.loc"
     download_file(url, todir, tofilename)
 
@@ -82,8 +93,18 @@ def download_github_font(todir):
 def download_gitee_split_loc_cn(todir):
     time_template()
     print("download.py >>> def download_gitee_split_loc_cn(todir) >>> todir: " + str(todir))
-    url = "https://gitee.com/bdo-cnhope/bdocn/tree/master/split_loc/"
-    raw_url = "https://gitee.com/bdo-cnhope/bdocn/raw/master/split_loc/"
+    url = "https://gitee.com/bdo-cnhope/bdocn/tree/master/split_loc_cn/"
+    raw_url = "https://gitee.com/bdo-cnhope/bdocn/raw/master/split_loc_cn/"
+    tmp_dir = temp_dir.temp_loc_dir()
+    tofilename = "languagedata_en.loc"
+    download_split_files(url, raw_url, tmp_dir)
+    joinfiles.join_files(tmp_dir, todir, tofilename)
+
+def download_gitee_split_loc_tw(todir):
+    time_template()
+    print("download.py >>> def download_gitee_split_loc_tw(todir) >>> todir: " + str(todir))
+    url = "https://gitee.com/bdo-cnhope/bdocn/tree/master/split_loc_tw/"
+    raw_url = "https://gitee.com/bdo-cnhope/bdocn/raw/master/split_loc_tw/"
     tmp_dir = temp_dir.temp_loc_dir()
     tofilename = "languagedata_en.loc"
     download_split_files(url, raw_url, tmp_dir)
@@ -99,6 +120,7 @@ def download_gitee_split_font(todir):
     download_split_files(url, raw_url, tmp_dir)
     joinfiles.join_files(tmp_dir, todir, tofilename)
 
+# old, discared
 def download_loc_tw(todir):
     time_template()
     print("download.py >>> def download_loc_tw(todir) >>> todir: " + str(todir))
