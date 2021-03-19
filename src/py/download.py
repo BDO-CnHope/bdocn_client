@@ -73,14 +73,14 @@ def download_github_loc_cn(todir):
     time_template()
     print("download.py >>> def download_github_loc_cn(todir) >>> todir: " + str(todir))
     url = "https://github.com/BDO-CnHope/bdocn/raw/master/ads/languagedata_cn.loc"
-    tofilename = "languagedata_en.loc"
+    tofilename = "languagedata_cn.loc"
     download_file(url, todir, tofilename)
 
 def download_github_loc_tw(todir):
     time_template()
     print("download.py >>> def download_loc_tw(todir) >>> todir: " + str(todir))
     url = "https://github.com/BDO-CnHope/bdocn/raw/master/ads/languagedata_tw.loc"
-    tofilename = "languagedata_en.loc"
+    tofilename = "languagedata_tw.loc"
     download_file(url, todir, tofilename)
 
 def download_github_font(todir):
@@ -96,7 +96,7 @@ def download_gitee_split_loc_cn(todir):
     url = "https://gitee.com/bdo-cnhope/bdocn/tree/master/split_loc_cn/"
     raw_url = "https://gitee.com/bdo-cnhope/bdocn/raw/master/split_loc_cn/"
     tmp_dir = temp_dir.temp_loc_dir()
-    tofilename = "languagedata_en.loc"
+    tofilename = "languagedata_cn.loc"
     download_split_files(url, raw_url, tmp_dir)
     joinfiles.join_files(tmp_dir, todir, tofilename)
 
@@ -106,7 +106,7 @@ def download_gitee_split_loc_tw(todir):
     url = "https://gitee.com/bdo-cnhope/bdocn/tree/master/split_loc_tw/"
     raw_url = "https://gitee.com/bdo-cnhope/bdocn/raw/master/split_loc_tw/"
     tmp_dir = temp_dir.temp_loc_dir()
-    tofilename = "languagedata_en.loc"
+    tofilename = "languagedata_tw.loc"
     download_split_files(url, raw_url, tmp_dir)
     joinfiles.join_files(tmp_dir, todir, tofilename)
 

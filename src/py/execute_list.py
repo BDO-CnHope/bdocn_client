@@ -5,6 +5,8 @@
 
 from time_template import time_template
 from pathlib import Path
+user_home = str(Path.home())
+from shutil import copy2
 
 import download
 import check_hash
@@ -39,44 +41,69 @@ def dm1_hm1(dir,font_var):
     print("execute_list.py >>> def dm1_hm1(dir)")
 
     ads_dir = dir + r'/ads/'
-    loc_path = dir + r'/ads/languagedata_en.loc'
+    loc_ads_path = dir + r'/ads/languagedata_en.loc'
+
     font_dir = dir + r'/prestringtable/font/'
     font_path = dir + r'/prestringtable/font/pearl.ttf'
+
+    local_font_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    local_font_path = user_home + r'/AppData/Roaming/bdocn_client/pearl.ttf'
+
+    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_cn.loc'
+
+    if Path(loc_dir).is_dir is False:
+        Path(bdocn_conf_dir).mkdir(parents=True, exist_ok=True)
 
     if Path(loc_path).is_file() is True:
         local_loc_hash = check_hash.get_local_hash(loc_path)
         online_loc_hash = check_hash.get_github_loc_cn_hash()
         if local_loc_hash != online_loc_hash:
-            download.download_github_loc_cn(ads_dir)
+            download.download_github_loc_cn(loc_dir)
+            copy2(loc_path,loc_ads_path)
         else:
             print("execute_list.py >>> def dm1_hm1(dir): same loc")
+            copy2(loc_path,loc_ads_path)
     else:
         print("execute_list.py >>> def dm1_hm1(dir): can not find: " +str(loc_path))
-        download.download_github_loc_cn(ads_dir)
+        download.download_github_loc_cn(loc_dir)
+        copy2(loc_path,loc_ads_path)
 
-    dm1_font(font_dir,font_path,font_var)
+    dm1_font(local_font_dir,local_font_path,font_var)
+    copy2(local_font_path,font_path)
 
 def dm1_hm2(dir,font_var):
     time_template()
     print("execute_list.py >>> def dm1_hm2(dir)")
 
     ads_dir = dir + r'/ads/'
-    loc_path = dir + r'/ads/languagedata_en.loc'
+    loc_ads_path = dir + r'/ads/languagedata_en.loc'
     font_dir = dir + r'/prestringtable/font/'
     font_path = dir + r'/prestringtable/font/pearl.ttf'
+    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_tw.loc'
+    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_cn.loc'
+
+    if Path(loc_dir).is_dir is False:
+        Path(bdocn_conf_dir).mkdir(parents=True, exist_ok=True)
 
     if Path(loc_path).is_file() is True:
         local_loc_hash = check_hash.get_local_hash(loc_path)
         online_loc_hash = check_hash.get_github_loc_tw_hash()
         if local_loc_hash != online_loc_hash:
-            download.download_github_loc_tw(ads_dir)
+            download.download_github_loc_tw(loc_dir)
+            copy2(loc_path,loc_ads_path)
         else:
             print("execute_list.py >>> def dm1_hm1(dir): same loc")
+            copy2(loc_path,loc_ads_path)
     else:
         print("execute_list.py >>> def dm1_hm1(dir): can not find: " +str(loc_path))
-        download.download_github_loc_tw(ads_dir)
+        download.download_github_loc_tw(loc_dir)
+        copy2(loc_path,loc_ads_path)
 
-    dm1_font(font_dir,font_path,font_var)
+    dm1_font(local_font_dir,local_font_path,font_var)
+    copy2(local_font_path,font_path)
 
 def dm1_hm3(dir,font_var):
     time_template()
@@ -102,44 +129,72 @@ def dm2_hm1(dir,font_var):
     print("execute_list.py >>> def dm2_hm1(dir)")
 
     ads_dir = dir + r'/ads/'
-    loc_path = dir + r'/ads/languagedata_en.loc'
+    loc_ads_path = dir + r'/ads/languagedata_en.loc'
+
     font_dir = dir + r'/prestringtable/font/'
     font_path = dir + r'/prestringtable/font/pearl.ttf'
+
+    local_font_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    local_font_path = user_home + r'/AppData/Roaming/bdocn_client/pearl.ttf'
+
+    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_cn.loc'
+
+    if Path(loc_dir).is_dir is False:
+        Path(bdocn_conf_dir).mkdir(parents=True, exist_ok=True)
 
     if Path(loc_path).is_file() is True:
         local_loc_hash = check_hash.get_local_hash(loc_path)
         online_loc_hash = check_hash.get_gitee_loc_cn_hash()
         if local_loc_hash != online_loc_hash:
-            download.download_gitee_split_loc_cn(ads_dir)
+            download.download_gitee_split_loc_cn(loc_dir)
+            copy2(loc_path,loc_ads_path)
         else:
             print("execute_list.py >>> def dm2_hm1(dir): same loc")
+            copy2(loc_path,loc_ads_path)
     else:
         print("execute_list.py >>> def dm2_hm1(dir): can not find: " +str(loc_path))
-        download.download_gitee_split_loc_cn(ads_dir)
+        download.download_gitee_split_loc_cn(loc_dir)
+        copy2(loc_path,loc_ads_path)
 
-    dm2_font(font_dir,font_path,font_var)
+    dm2_font(local_font_dir,local_font_path,font_var)
+    copy2(local_font_path,font_path)
 
 def dm2_hm2(dir,font_var):
     time_template()
     print("execute_list.py >>> def dm1_hm2(dir)")
 
     ads_dir = dir + r'/ads/'
-    loc_path = dir + r'/ads/languagedata_en.loc'
+    loc_ads_path = dir + r'/ads/languagedata_en.loc'
+
     font_dir = dir + r'/prestringtable/font/'
     font_path = dir + r'/prestringtable/font/pearl.ttf'
+
+    local_font_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    local_font_path = user_home + r'/AppData/Roaming/bdocn_client/pearl.ttf'
+
+    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_tw.loc'
+
+    if Path(loc_dir).is_dir is False:
+        Path(bdocn_conf_dir).mkdir(parents=True, exist_ok=True)
 
     if Path(loc_path).is_file() is True:
         local_loc_hash = check_hash.get_local_hash(loc_path)
         online_loc_hash = check_hash.get_gitee_loc_tw_hash()
         if local_loc_hash != online_loc_hash:
-            download.download_gitee_split_loc_tw(ads_dir)
+            download.download_gitee_split_loc_tw(loc_dir)
+            copy2(loc_path,loc_ads_path)
         else:
             print("execute_list.py >>> def dm2_hm1(dir): same loc")
+            copy2(loc_path,loc_ads_path)
     else:
         print("execute_list.py >>> def dm2_hm1(dir): can not find: " +str(loc_path))
-        download.download_gitee_split_loc_tw(ads_dir)
+        download.download_gitee_split_loc_tw(loc_dir)
+        copy2(loc_path,loc_ads_path)
 
-    dm2_font(font_dir,font_path,font_var)
+    dm2_font(local_font_dir,local_font_path,font_var)
+    copy2(local_font_path,font_path)
 
 def dm2_hm3(dir,font_var):
     time_template()
