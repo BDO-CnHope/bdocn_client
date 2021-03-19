@@ -43,17 +43,17 @@ def dm1_hm1(dir,font_var):
     ads_dir = dir + r'/ads/'
     loc_ads_path = dir + r'/ads/languagedata_en.loc'
 
+    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_cn.loc'
+
     font_dir = dir + r'/prestringtable/font/'
     font_path = dir + r'/prestringtable/font/pearl.ttf'
 
     local_font_dir = user_home + r'/AppData/Roaming/bdocn_client/'
     local_font_path = user_home + r'/AppData/Roaming/bdocn_client/pearl.ttf'
 
-    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
-    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_cn.loc'
-
-    if Path(loc_dir).is_dir is False:
-        Path(bdocn_conf_dir).mkdir(parents=True, exist_ok=True)
+    if Path(loc_dir).is_dir() is False:
+        Path(loc_dir).mkdir(parents=True, exist_ok=True)
 
     if Path(loc_path).is_file() is True:
         local_loc_hash = check_hash.get_local_hash(loc_path)
@@ -78,15 +78,18 @@ def dm1_hm2(dir,font_var):
 
     ads_dir = dir + r'/ads/'
     loc_ads_path = dir + r'/ads/languagedata_en.loc'
-    font_dir = dir + r'/prestringtable/font/'
-    font_path = dir + r'/prestringtable/font/pearl.ttf'
+
     loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
     loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_tw.loc'
-    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
-    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_cn.loc'
 
-    if Path(loc_dir).is_dir is False:
-        Path(bdocn_conf_dir).mkdir(parents=True, exist_ok=True)
+    font_dir = dir + r'/prestringtable/font/'
+    font_path = dir + r'/prestringtable/font/pearl.ttf'
+
+    local_font_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    local_font_path = user_home + r'/AppData/Roaming/bdocn_client/pearl.ttf'
+
+    if Path(loc_dir).is_dir() is False:
+        Path(loc_dir).mkdir(parents=True, exist_ok=True)
 
     if Path(loc_path).is_file() is True:
         local_loc_hash = check_hash.get_local_hash(loc_path)
@@ -131,17 +134,17 @@ def dm2_hm1(dir,font_var):
     ads_dir = dir + r'/ads/'
     loc_ads_path = dir + r'/ads/languagedata_en.loc'
 
+    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_cn.loc'
+
     font_dir = dir + r'/prestringtable/font/'
     font_path = dir + r'/prestringtable/font/pearl.ttf'
 
     local_font_dir = user_home + r'/AppData/Roaming/bdocn_client/'
     local_font_path = user_home + r'/AppData/Roaming/bdocn_client/pearl.ttf'
 
-    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
-    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_cn.loc'
-
-    if Path(loc_dir).is_dir is False:
-        Path(bdocn_conf_dir).mkdir(parents=True, exist_ok=True)
+    if Path(loc_dir).is_dir() is False:
+        Path(loc_dir).mkdir(parents=True, exist_ok=True)
 
     if Path(loc_path).is_file() is True:
         local_loc_hash = check_hash.get_local_hash(loc_path)
@@ -167,17 +170,18 @@ def dm2_hm2(dir,font_var):
     ads_dir = dir + r'/ads/'
     loc_ads_path = dir + r'/ads/languagedata_en.loc'
 
+    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
+    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_tw.loc'
+
     font_dir = dir + r'/prestringtable/font/'
     font_path = dir + r'/prestringtable/font/pearl.ttf'
 
     local_font_dir = user_home + r'/AppData/Roaming/bdocn_client/'
     local_font_path = user_home + r'/AppData/Roaming/bdocn_client/pearl.ttf'
 
-    loc_dir = user_home + r'/AppData/Roaming/bdocn_client/'
-    loc_path = user_home + r'/AppData/Roaming/bdocn_client/languagedata_tw.loc'
 
-    if Path(loc_dir).is_dir is False:
-        Path(bdocn_conf_dir).mkdir(parents=True, exist_ok=True)
+    if Path(loc_dir).is_dir() is False:
+        Path(loc_dir).mkdir(parents=True, exist_ok=True)
 
     if Path(loc_path).is_file() is True:
         local_loc_hash = check_hash.get_local_hash(loc_path)
