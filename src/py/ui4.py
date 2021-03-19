@@ -1,4 +1,4 @@
-# @Time    : 2021/03/15
+# @Time    : 2021/03/18
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -28,7 +28,7 @@ class Application:
         self.left_top_panel_text = tk.Text(self.left_panel_top)
         self.left_top_panel_text.config(background='#f2f2f2', font='{Microsoft YaHei} 10 {}', height='10', relief='flat')
         self.left_top_panel_text.config(state='disabled', width='50')
-        _text_ = r'''1. 汉化文本来自于黑沙台服，准确内容请以美服官方为主！
+        _text_ = r'''1. 汉化文本来自于黑沙台服，准确内容请以官方美服为准！
 2. 如有问题，请去Github提交issue。
 3. 本程序是开源和免费的，如遇收费请勿上当受骗！
 4. 请文明游戏，保持良好的游戏环境！'''
@@ -45,9 +45,9 @@ class Application:
         self.left_panel_body_text = tk.Text(self.left_panel_body)
         self.left_panel_body_text.config(background='#f2f2f2', font='{Microsoft YaHei} 10 {}', relief='flat')
         self.left_panel_body_text.config(state='disabled', width='50')
-        client_notice = r'''1. 执行汉化前，请先【运行黑沙的启动器】并等待其更新完毕 (显示100%)！
+        client_notice = r'''1. 执行汉化前，请先【运行黑沙的启动器】并等待其更新完毕 (进度显示100%)！
 2. 选择正确的【黑沙的游戏目录】
-3. 黑沙配置目录默认会自动选择, 可不手选
+3. 汉化工具默认会自动匹配黑纱的配置文件, 如失败请手动选择
 4. 根据需求选择你要汉化的方式
 5. 点击运行执行汉化
 
@@ -71,20 +71,20 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.left_panel_bottom_text.config(background='#f2f2f2', font='{Microsoft YaHei} 8 {}', relief='flat')
         self.left_panel_bottom_text.config(state='disabled', width='50')
         _text_ = ''' Create by Naunter
- Version:    2021031403
- Date:   2021/03/15
+ Version:    2021031404
+ Date:   2021/03/18
 '''
         self.left_panel_bottom_text.configure(state='normal')
         self.left_panel_bottom_text.insert('0.0', _text_)
         self.left_panel_bottom_text.configure(state='disabled')
         self.left_panel_bottom_text.place(anchor='nw', height='50', width='150', x='0', y='0')
         self.left_panel_bottom_button_1 = tk.Button(self.left_panel_bottom)
-        self.left_panel_bottom_button_1.config(text='Github')
-        self.left_panel_bottom_button_1.place(anchor='nw', height='26', width='80', x='200', y='0')
+        self.left_panel_bottom_button_1.config(text='Github项目主页')
+        self.left_panel_bottom_button_1.place(anchor='nw', height='26', width='90', x='190', y='0')
         self.left_panel_bottom_button_1.configure(command=lambda :thread_it(self.hyperlinks(1)))
         self.left_panel_bottom_button_2 = tk.Button(self.left_panel_bottom)
-        self.left_panel_bottom_button_2.config(text='Gitee')
-        self.left_panel_bottom_button_2.place(anchor='nw', height='26', width='80', x='200', y='30')
+        self.left_panel_bottom_button_2.config(text='视频演示')
+        self.left_panel_bottom_button_2.place(anchor='nw', height='26', width='90', x='190', y='30')
         self.left_panel_bottom_button_2.configure(command=lambda :thread_it(self.hyperlinks(2)))
         self.save_path = tk.LabelFrame(self.main_window)
         self.save_path.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#0000ff', height='200', relief='groove')

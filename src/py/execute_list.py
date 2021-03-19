@@ -1,4 +1,4 @@
-# @Time    : 2021/03/15
+# @Time    : 2021/03/18
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -45,13 +45,14 @@ def dm1_hm1(dir,font_var):
 
     if Path(loc_path).is_file() is True:
         local_loc_hash = check_hash.get_local_hash(loc_path)
-        online_loc_hash = check_hash.get_github_loc_hash()
+        online_loc_hash = check_hash.get_github_loc_cn_hash()
         if local_loc_hash != online_loc_hash:
             download.download_github_loc_cn(ads_dir)
         else:
             print("execute_list.py >>> def dm1_hm1(dir): same loc")
     else:
         print("execute_list.py >>> def dm1_hm1(dir): can not find: " +str(loc_path))
+        download.download_github_loc_cn(ads_dir)
 
     dm1_font(font_dir,font_path,font_var)
 
@@ -60,10 +61,21 @@ def dm1_hm2(dir,font_var):
     print("execute_list.py >>> def dm1_hm2(dir)")
 
     ads_dir = dir + r'/ads/'
+    loc_path = dir + r'/ads/languagedata_en.loc'
     font_dir = dir + r'/prestringtable/font/'
     font_path = dir + r'/prestringtable/font/pearl.ttf'
 
-    download.download_loc_tw(ads_dir)
+    if Path(loc_path).is_file() is True:
+        local_loc_hash = check_hash.get_local_hash(loc_path)
+        online_loc_hash = check_hash.get_github_loc_tw_hash()
+        if local_loc_hash != online_loc_hash:
+            download.download_github_loc_tw(ads_dir)
+        else:
+            print("execute_list.py >>> def dm1_hm1(dir): same loc")
+    else:
+        print("execute_list.py >>> def dm1_hm1(dir): can not find: " +str(loc_path))
+        download.download_github_loc_tw(ads_dir)
+
     dm1_font(font_dir,font_path,font_var)
 
 def dm1_hm3(dir,font_var):
@@ -96,13 +108,14 @@ def dm2_hm1(dir,font_var):
 
     if Path(loc_path).is_file() is True:
         local_loc_hash = check_hash.get_local_hash(loc_path)
-        online_loc_hash = check_hash.get_gitee_loc_hash()
+        online_loc_hash = check_hash.get_gitee_loc_cn_hash()
         if local_loc_hash != online_loc_hash:
             download.download_gitee_split_loc_cn(ads_dir)
         else:
             print("execute_list.py >>> def dm2_hm1(dir): same loc")
     else:
         print("execute_list.py >>> def dm2_hm1(dir): can not find: " +str(loc_path))
+        download.download_gitee_split_loc_cn(ads_dir)
 
     dm2_font(font_dir,font_path,font_var)
 
@@ -111,10 +124,21 @@ def dm2_hm2(dir,font_var):
     print("execute_list.py >>> def dm1_hm2(dir)")
 
     ads_dir = dir + r'/ads/'
+    loc_path = dir + r'/ads/languagedata_en.loc'
     font_dir = dir + r'/prestringtable/font/'
     font_path = dir + r'/prestringtable/font/pearl.ttf'
 
-    download.download_loc_tw(ads_dir)
+    if Path(loc_path).is_file() is True:
+        local_loc_hash = check_hash.get_local_hash(loc_path)
+        online_loc_hash = check_hash.get_gitee_loc_tw_hash()
+        if local_loc_hash != online_loc_hash:
+            download.download_gitee_split_loc_tw(ads_dir)
+        else:
+            print("execute_list.py >>> def dm2_hm1(dir): same loc")
+    else:
+        print("execute_list.py >>> def dm2_hm1(dir): can not find: " +str(loc_path))
+        download.download_gitee_split_loc_tw(ads_dir)
+
     dm2_font(font_dir,font_path,font_var)
 
 def dm2_hm3(dir,font_var):
