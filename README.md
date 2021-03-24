@@ -47,4 +47,6 @@
 - [bdocn_client](https://github.com/BDO-CnHope/bdocn_client)
 - [黑沙汉化语言包](https://gitee.com/bdo-cnhope/bdocn)
 - [黑沙汉化工具客户端](https://gitee.com/bdo-cnhope/bdocn_client)
+- [Make your client English](https://steamcommunity.com/sharedfiles/filedetails/?id=1561979491)
+- [[Guide Update] New English Patch Links.](https://www.reddit.com/r/blackdesertonline/comments/lrid4g/guide_update_new_english_patch_links/?sort=new)
 
