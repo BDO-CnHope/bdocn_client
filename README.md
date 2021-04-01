@@ -51,4 +51,4 @@
 - [[Guide Update] New English Patch Links.](https://www.reddit.com/r/blackdesertonline/comments/lrid4g/guide_update_new_english_patch_links/?sort=new)
 
 # 赞助和帮助
-[![Foo](https://www.vultr.com/media/banners/banner_468x60.png)](https://www.vultr.com/?ref=8385583-6G)
+[![Foo](https://www.vultr.com/media/banners/banner_468x60.png)](https://www.vultr.com/zh/?ref=8385583-6G)
