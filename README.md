@@ -7,8 +7,9 @@
 # 使用方法
 ## 1. 使用客户端安装汉化补丁
 1. 下载最新版本(Latest release)的[`bdocn_client.exe`](https://github.com/BDO-CnHope/bdocn_client/releases)
-2. 正确的选择黑沙的游戏目录
-3. 按指示完成汉化补丁的安装
+    - 由于不可抗拒的因素，无法成功的在Gitee上传文件，国内用户可以到这里下载: [https://share.weiyun.com/BtJgJGUX](https://share.weiyun.com/BtJgJGUX)
+3. 正确的选择黑沙的游戏目录
+4. 按指示完成汉化补丁的安装
 ## 2. 手动安装汉化补丁
 1. 前往[黑沙汉化语言包](https://github.com/BDO-CnHope/bdocn)
 2. 打包下载`ads`和`prestringtable`这两个文件夹
