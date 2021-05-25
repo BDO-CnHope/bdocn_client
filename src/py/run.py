@@ -1,4 +1,4 @@
-# @Time    : 2021/03/15
+# @Time    : 2021/05/25
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -46,7 +46,7 @@ else:
     showinfo('提示', '请先运行黑色沙漠的启动器并等待其更新完毕后, 再执行汉化任务!')
 
 check = check_client_version.get_version()
-if check != '2021031404' or check is False:
+if check != '2021052500' or check is False:
     print("run.py >>> check_client_version.get_version() is True")
     a = askyesno('提示', '有新版本的客户端，是否查看？')
     if a == True:

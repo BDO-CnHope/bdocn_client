@@ -1,4 +1,4 @@
-# @Time    : 2021/03/15
+# @Time    : 2021/05/25
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -19,7 +19,7 @@ def get_version():
     opener.addheaders = [('User-agent', user_agent)]
     install_opener(opener)
     try:
-        a = urlopen(url, timeout=1)
+        a = urlopen(url, timeout=5)
     except:
         print("check_client_version.py >>> def check_version(): something wrong, maybe timeout")
         version = False

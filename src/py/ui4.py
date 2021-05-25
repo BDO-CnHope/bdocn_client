@@ -1,4 +1,4 @@
-# @Time    : 2021/03/18
+# @Time    : 2021/05/25
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -15,6 +15,7 @@ import select_bdo_game_dir
 import select_bdo_game_conf
 import execute_list
 import replace_text
+import loc_lang
 
 class Application:
     def __init__(self, master=None):
@@ -28,7 +29,7 @@ class Application:
         self.left_top_panel_text = tk.Text(self.left_panel_top)
         self.left_top_panel_text.config(background='#f2f2f2', font='{Microsoft YaHei} 10 {}', height='10', relief='flat')
         self.left_top_panel_text.config(state='disabled', width='50')
-        _text_ = r'''1. 汉化文本来自于黑沙台服，准确内容请以官方美服为准！
+        _text_ = r'''1. 汉化文本来自于黑沙台服，准确内容请以黑沙官方为准！
 2. 如有问题，请去Github提交issue。
 3. 本程序是开源和免费的，如遇收费请勿上当受骗！
 4. 请文明游戏，保持良好的游戏环境！'''
@@ -71,8 +72,8 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.left_panel_bottom_text.config(background='#f2f2f2', font='{Microsoft YaHei} 8 {}', relief='flat')
         self.left_panel_bottom_text.config(state='disabled', width='50')
         _text_ = ''' Create by Naunter
- Version:    2021031404
- Date:   2021/03/18
+ Version:    2021052500
+ Date:   2021/05/25
 '''
         self.left_panel_bottom_text.configure(state='normal')
         self.left_panel_bottom_text.insert('0.0', _text_)
@@ -119,7 +120,7 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.download_method = tk.LabelFrame(self.main_window)
         self.download_method.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#004080', height='200', relief='groove')
         self.download_method.config(text='2. 汉化包下载线路', width='200')
-        self.download_method.place(anchor='nw', height='60', width='300', x='300', y='150')
+        self.download_method.place(anchor='nw', height='60', width='300', x='300', y='140')
         self.dmVar = tk.StringVar(value='1')
         self.download_method_radiobutton_1 = tk.Radiobutton(self.download_method)
         self.download_method_radiobutton_1.config(font='{Microsoft YaHei} 12 {}', text='海外下载', value='1', variable=self.dmVar)
@@ -130,7 +131,7 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.hanhua_method = tk.LabelFrame(self.main_window)
         self.hanhua_method.config(background='#f2f2f2', font='{Microsoft YaHei} 12 {bold}', foreground='#008080', height='200', text='3. 汉化方式')
         self.hanhua_method.config(width='200')
-        self.hanhua_method.place(anchor='nw', height='220', width='300', x='300', y='220')
+        self.hanhua_method.place(anchor='nw', height='220', width='300', x='300', y='200')
         self.hmVar=tk.IntVar()
         self.hmVar.set(1)
         self.hanhua_method_radiobutton_1 = tk.Radiobutton(self.hanhua_method)
@@ -143,19 +144,34 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.hanhua_method_radiobutton_3.config(font='{Microsoft YaHei} 12 {}', text='不汉化，只安装字体', variable=self.hmVar, value='3')
         self.hanhua_method_radiobutton_3.place(anchor='nw', x='0', y='80')
         self.hanhua_method_radiobutton_4 = tk.Radiobutton(self.hanhua_method)
-        self.hanhua_method_radiobutton_4.config(font='{Microsoft YaHei} 12 {}', text='清除汉化，恢复英文', variable=self.hmVar, value='4')
+        self.hanhua_method_radiobutton_4.config(font='{Microsoft YaHei} 12 {}', text='清除汉化，恢复成英文', variable=self.hmVar, value='4')
         self.hanhua_method_radiobutton_4.place(anchor='nw', x='0', y='120')
         self.usefontVar = tk.StringVar(value='1')
         self.no_font_change = tk.Checkbutton(self.hanhua_method)
         self.no_font_change.configure(font='{Microsoft YaHei} 9 {}', relief='flat', text='不覆盖现有的汉化字体 (第一次汉化请取消勾选)', variable=self.usefontVar)
         self.no_font_change.place(anchor='nw', x='0', y='155')
+        self.select_server = tk.LabelFrame(self.main_window)
+        self.select_server.config(font='{Microsoft YaHei} 12 {bold}', foreground='#800040', height='200', text='4. 选择所在的黑沙服区', width='200')
+        self.select_server.place(anchor='nw', height='100', width='300', x='300', y='420')
+        self.select_server_listbox = tk.Listbox(self.select_server)
+        self.select_server_scrollbar = tk.Scrollbar(self.select_server)
+        self.select_server_scrollbar.configure(orient='vertical', command=self.select_server_listbox.yview)
+        self.select_server_scrollbar.pack(side="right", fill="both")
+        self.select_server_listbox.place(anchor='nw', height='70', width='285', x='5', y='0')
+        self.select_server_listbox.configure(font='{Microsoft YaHei} 10', justify='left', yscrollcommand=self.select_server_scrollbar.set)
+        self.serverVar=tk.IntVar()
+        self.select_server_listbox.insert(1, '欧/美服: languagedata_en.loc')
+        self.select_server_listbox.insert(2, '台服: languagedata_tw.loc')
+        self.select_server_listbox.insert(3, '大洋服: languagedata_pt.loc')
+        self.select_server_listbox.insert(4, '日服: languagedata_jp.loc')
+        self.select_server_listbox.select_set(0)
         self.process_panel = tk.LabelFrame(self.main_window)
-        self.process_panel.config(font='{Microsoft YaHei} 12 {bold}', foreground='#008000', height='200', text='4. 操作面板', width='200')
-        self.process_panel.place(anchor='nw', height='150', width='300', x='300', y='450')
+        self.process_panel.config(font='{Microsoft YaHei} 12 {bold}', foreground='#008000', height='200', text='5. 执行汉化', width='200')
+        self.process_panel.place(anchor='nw', height='80', width='300', x='300', y='520')
         self.process_panel_button_1 = tk.Button(self.process_panel)
         self.process_panel_button_1.config(font='{Microsoft YaHei} 12 {bold}', background='#008000', foreground='white', text='点击执行汉化')
         self.process_panel_button_1.configure(command=lambda :thread_it(self.start_button))
-        self.process_panel_button_1.place(anchor='nw', height='100', width='285', x='5', y='10')
+        self.process_panel_button_1.place(anchor='nw', height='50', width='285', x='5', y='0')
  
         self.mainwindow = self.main_window
 
@@ -169,6 +185,7 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
 
     def unlock_start_button(self):
         self.process_panel_button_1.config(state='normal')
+
 
     def insert_save_path_entry(self, path):
         self.save_path_entry.delete('0', 'end')
@@ -281,6 +298,7 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
                 else:
                     pass
 
+            
             if a is True and dm == '2':
                 print("ui4.py >>> while a is True and dm == 2")
                 if hm == '1':
@@ -310,6 +328,17 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
                 else:
                     pass
 
+            selection = self.select_server_listbox.curselection()
+
+            if str(selection[0]) == '0':
+                pass
+            elif str(selection[0]) == '1':
+                loc_lang.loc_tw(bdo_game_dir)
+            elif str(selection[0]) == '2':
+                loc_lang.loc_pt(bdo_game_dir)
+            elif str(selection[0]) == '3':
+                loc_lang.loc_jp(bdo_game_dir)
+
             replace_text.change_ui_font(bdo_conf_path)
 
             if Path(save_bdocn_conf.create_bdocn_conf_dir()).is_dir() is True:
@@ -323,3 +352,4 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         time_template()
         print("ui4.py >>> def run(self)")
         self.mainwindow.mainloop()
+

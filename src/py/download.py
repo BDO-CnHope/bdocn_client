@@ -145,7 +145,9 @@ def download_loc_en(todir):
         version = a.read().decode('utf-8')
 
     if version != False:
+        # \t space, (\d+) only output matched numbers
         fil_version = findall(r'languagedata_en.loc\t(\d+)', version)
+        # "".join() convert list to str
         url = 'http://dn.sea.playblackdesert.com/UploadData/ads/languagedata_en/' + "".join(fil_version) + '/languagedata_en.loc'
         tofilename = "languagedata_en.loc"
         download_file(url, todir, tofilename)
