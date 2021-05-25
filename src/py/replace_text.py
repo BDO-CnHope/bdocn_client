@@ -17,3 +17,4 @@ def change_ui_font(path):
         f.seek(0)
         f.write(new_content)
         f.truncate()
+        f.close()
