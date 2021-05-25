@@ -28,6 +28,7 @@
 
 # issues
 - 如有问题**请开issue提问**！
+- [点我新建一个issue](https://github.com/BDO-CnHope/bdocn_client/issues/new/choose)
 
 # 声明
 - 本汉化工具和代码仅供学习交流，如作他用所承受的法律责任一概与作者无关！
