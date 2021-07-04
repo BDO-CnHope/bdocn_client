@@ -1,4 +1,4 @@
-# @Time    : 2021/05/25
+# @Time    : 2021/07/04
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -48,7 +48,7 @@ class Application:
         self.left_panel_body_text.config(state='disabled', width='50')
         client_notice = r'''1. 执行汉化前，请先【运行黑沙的启动器】并等待其更新完毕 (进度显示100%)！
 2. 选择正确的【黑沙的游戏目录】
-3. 汉化工具默认会自动匹配黑纱的配置文件, 如失败请手动选择
+3. 汉化工具默认会自动匹配黑沙的配置文件, 如失败请手动选择
 4. 根据需求选择你要汉化的方式
 5. 点击运行执行汉化
 
@@ -71,14 +71,14 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.left_panel_bottom_text = tk.Text(self.left_panel_bottom)
         self.left_panel_bottom_text.config(background='#f2f2f2', font='{Microsoft YaHei} 8 {}', relief='flat')
         self.left_panel_bottom_text.config(state='disabled', width='50')
-        _text_ = ''' Create by Naunter
- Version:    2021052500
- Date:   2021/05/25
+        _text_ = '''Created by Naunter@Github
+Version:    v3.2021052501
+Updated:   2021/07/04
 '''
         self.left_panel_bottom_text.configure(state='normal')
         self.left_panel_bottom_text.insert('0.0', _text_)
         self.left_panel_bottom_text.configure(state='disabled')
-        self.left_panel_bottom_text.place(anchor='nw', height='50', width='150', x='0', y='0')
+        self.left_panel_bottom_text.place(anchor='nw', height='50', width='160', x='0', y='0')
         self.left_panel_bottom_button_1 = tk.Button(self.left_panel_bottom)
         self.left_panel_bottom_button_1.config(text='Github项目主页')
         self.left_panel_bottom_button_1.place(anchor='nw', height='26', width='90', x='190', y='0')
@@ -151,7 +151,7 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.no_font_change.configure(font='{Microsoft YaHei} 9 {}', relief='flat', text='不覆盖现有的汉化字体 (第一次汉化请取消勾选)', variable=self.usefontVar)
         self.no_font_change.place(anchor='nw', x='0', y='155')
         self.select_server = tk.LabelFrame(self.main_window)
-        self.select_server.config(font='{Microsoft YaHei} 12 {bold}', foreground='#800040', height='200', text='4. 选择所在的黑沙服区', width='200')
+        self.select_server.config(font='{Microsoft YaHei} 12 {bold}', foreground='#800040', height='200', text='4. 选择黑沙原本所用的语言', width='200')
         self.select_server.place(anchor='nw', height='100', width='300', x='300', y='420')
         self.select_server_listbox = tk.Listbox(self.select_server)
         self.select_server_scrollbar = tk.Scrollbar(self.select_server)
@@ -160,10 +160,12 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         self.select_server_listbox.place(anchor='nw', height='70', width='285', x='5', y='0')
         self.select_server_listbox.configure(font='{Microsoft YaHei} 10', justify='left', yscrollcommand=self.select_server_scrollbar.set)
         self.serverVar=tk.IntVar()
-        self.select_server_listbox.insert(1, '欧/美服: languagedata_en.loc')
-        self.select_server_listbox.insert(2, '台服: languagedata_tw.loc')
-        self.select_server_listbox.insert(3, '大洋服: languagedata_pt.loc')
-        self.select_server_listbox.insert(4, '日服: languagedata_jp.loc')
+        self.select_server_listbox.insert(1, '欧美服(英语): languagedata_en.loc')
+        self.select_server_listbox.insert(2, '俄服(俄语): languagedata_ru.loc')
+        self.select_server_listbox.insert(3, '大洋服(葡萄牙语): languagedata_pt.loc')
+        self.select_server_listbox.insert(4, '台服(繁体中文): languagedata_tw.loc')
+        self.select_server_listbox.insert(5, '欧美服(法语): languagedata_en.loc')
+        self.select_server_listbox.insert(6, '日服(日语): languagedata_jp.loc')
         self.select_server_listbox.select_set(0)
         self.process_panel = tk.LabelFrame(self.main_window)
         self.process_panel.config(font='{Microsoft YaHei} 12 {bold}', foreground='#008000', height='200', text='5. 执行汉化', width='200')
@@ -185,7 +187,6 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
 
     def unlock_start_button(self):
         self.process_panel_button_1.config(state='normal')
-
 
     def insert_save_path_entry(self, path):
         self.save_path_entry.delete('0', 'end')
@@ -298,7 +299,6 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
                 else:
                     pass
 
-            
             if a is True and dm == '2':
                 print("ui4.py >>> while a is True and dm == 2")
                 if hm == '1':
@@ -333,10 +333,14 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
             if str(selection[0]) == '0':
                 pass
             elif str(selection[0]) == '1':
-                loc_lang.loc_tw(bdo_game_dir)
+                loc_lang.loc_ru(bdo_game_dir)
             elif str(selection[0]) == '2':
                 loc_lang.loc_pt(bdo_game_dir)
             elif str(selection[0]) == '3':
+                loc_lang.loc_tw(bdo_game_dir)
+            elif str(selection[0]) == '4':
+                loc_lang.loc_fr(bdo_game_dir)
+            elif str(selection[0]) == '5':
                 loc_lang.loc_jp(bdo_game_dir)
 
             replace_text.change_ui_font(bdo_conf_path)
@@ -352,4 +356,3 @@ C:\Users\你的用户名\Documents\Black Desert\GameOption.txt
         time_template()
         print("ui4.py >>> def run(self)")
         self.mainwindow.mainloop()
-
