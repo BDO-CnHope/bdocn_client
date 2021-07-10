@@ -44,9 +44,3 @@
 - [黑沙汉化工具客户端](https://gitee.com/bdo-cnhope/bdocn_client)
 - [Make your client English](https://steamcommunity.com/sharedfiles/filedetails/?id=1561979491)
 - [[Guide Update] New English Patch Links.](https://www.reddit.com/r/blackdesertonline/comments/lrid4g/guide_update_new_english_patch_links/?sort=new)
-
-# 赞助和帮助
-## 用以下的链接在Vultr开一个新的VPS账号可获得$100刀的使用额度
-- 至于VPS用来干嘛的请自行搜索科学上网(狗头
-
-[![Foo](https://www.vultr.com/media/banners/banner_468x60.png)](https://www.vultr.com/zh/?ref=8385583-6G)
