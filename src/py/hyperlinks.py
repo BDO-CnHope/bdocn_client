@@ -30,7 +30,15 @@ def hyperlinks(var):
         open_new(r"https://github.com/BDO-CnHope/bdocn_client")
     elif var == 2:
         print("hyperlinks.py >>> def hyperlinks(var): var: " + str(var))
-        open_new(r"https://www.bilibili.com/video/BV1yf4y1s75B")
+        url1=r"https://space.bilibili.com/264222/video"
+        url2=r"https://cnhope.onehoi.com/bdocn"
+        try:
+            if test_link(url2) != 200:
+                open_new(url1)
+            else:
+                open_new(url2)
+        except:
+            open_new(url1)
     elif var == 3:
         print("hyperlinks.py >>> def hyperlinks(var): var: " + str(var))
         url1=r"https://share.weiyun.com/BtJgJGUX"
