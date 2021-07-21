@@ -45,3 +45,6 @@
 - [黑沙汉化工具客户端](https://gitee.com/bdo-cnhope/bdocn_client)
 - [Make your client English](https://steamcommunity.com/sharedfiles/filedetails/?id=1561979491)
 - [[Guide Update] New English Patch Links.](https://www.reddit.com/r/blackdesertonline/comments/lrid4g/guide_update_new_english_patch_links/?sort=new)
+
+# Donation/捐助
+- [PayPal](https://paypal.me/Naunter)
