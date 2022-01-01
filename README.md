@@ -6,6 +6,8 @@
 - 本汉化工具暂时只支持以下语言/服区的黑沙: 
    - 英语，俄语，葡萄牙语，繁体中文，法语 
 
+# 更新内容说明: [请点击查看这里](./NEWS.md)
+
 # 使用方法
 ## 1. 使用汉化工具安装汉化补丁
 1. 下载最新版本(Latest release)的[`bdocn_client.exe`](https://github.com/BDO-CnHope/bdocn_client/releases)
