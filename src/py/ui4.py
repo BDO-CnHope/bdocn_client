@@ -1,4 +1,4 @@
-# @Time    : 2021/07/10
+# @Time    : 2022/01/01
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -18,8 +18,8 @@ import execute_list
 import replace_text
 import loc_lang
 
-bdocn_version = 'v3.2021071000'
-bdocn_up_date = '2021/07/10'
+bdocn_version = 'v3.2022010100'
+bdocn_up_date = '2022/01/01'
 
 class Application:
     def __init__(self, master=None):
@@ -85,7 +85,7 @@ Updated:    '''+ bdocn_up_date +'''
         self.left_panel_bottom_text.configure(state='disabled')
         self.left_panel_bottom_text.place(anchor='nw', height='50', width='160', x='0', y='0')
         self.left_panel_bottom_button_1 = tk.Button(self.left_panel_bottom)
-        self.left_panel_bottom_button_1.config(text='Github项目主页')
+        self.left_panel_bottom_button_1.config(text='项目主页')
         self.left_panel_bottom_button_1.place(anchor='nw', height='26', width='90', x='190', y='0')
         self.left_panel_bottom_button_1.configure(command=lambda :thread_it(self.hyperlinks(1)))
         self.left_panel_bottom_button_2 = tk.Button(self.left_panel_bottom)

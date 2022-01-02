@@ -1,4 +1,4 @@
-# @Time    : 2021/07/10
+# @Time    : 2022/01/01
 # @Author  : Naunter
 # @Page    : https://github.com/Naunters
 # @Page    : https://github.com/BDO-CnHope/bdocn_client
@@ -27,7 +27,15 @@ def hyperlinks(var):
     print("hyperlinks.py >>> def hyperlinks(var): ")
     if var == 1 :
         print("hyperlinks.py >>> def hyperlinks(var): var: " + str(var))
-        open_new(r"https://github.com/BDO-CnHope/bdocn_client")
+        url1=r"https://gitee.com/bdo-cnhope/bdocn_client"
+        url2=r"https://github.com/BDO-CnHope/bdocn_client"
+        try:
+            if test_link(url2) != 200:
+                open_new(url1)
+            else:
+                open_new(url2)
+        except:
+            open_new(url1)
     elif var == 2:
         print("hyperlinks.py >>> def hyperlinks(var): var: " + str(var))
         url1=r"https://space.bilibili.com/264222/video"
@@ -41,9 +49,14 @@ def hyperlinks(var):
             open_new(url1)
     elif var == 3:
         print("hyperlinks.py >>> def hyperlinks(var): var: " + str(var))
-        url1=r"https://share.weiyun.com/BtJgJGUX"
-        url2=r"https://github.com/BDO-CnHope/bdocn_client/releases"
-        if test_link(url2) != 200:
+        #url1=r"https://share.weiyun.com/BtJgJGUX"
+        #url2=r"https://github.com/BDO-CnHope/bdocn_client/releases"
+        url1=r"https://gitee.com/bdo-cnhope/bdocn_client/blob/main/NEWS.md"
+        url2=r"https://github.com/BDO-CnHope/bdocn_client/blob/main/NEWS.md"
+        try:
+            if test_link(url2) != 200:
+                open_new(url1)
+            else:
+                open_new(url2)
+        except:
             open_new(url1)
-        else:
-            open_new(url2)
