@@ -17,10 +17,10 @@
 2. 运行黑沙的启动器, 等待启动器完成所有的更新后(就是当进度条显示100%)。保持黑沙启动器开启的状态下 
 3. 运行本工具，然后执行打中文补丁的任务。
 4. 打完中文补丁后，再回到黑沙的启动器，然后运行游戏
-5. [工具使用演示](https://cnhope.onehoi.com/bdocn)
+5. [详细的工具使用演示](https://cnhope.onehoi.com/bdocn)
 
 ## 2. 手动安装中文化补丁
-1. 前往[黑沙中文化语言包](https://github.com/BDO-CnHope/bdocn)
+1. 前往[黑沙中文语言包](https://github.com/BDO-CnHope/bdocn)
 2. 打包下载`ads`和`prestringtable`这两个文件夹
 3. 找到你本地的黑沙的游戏根目录
 4. 将下载的两个文件夹覆盖到目录
@@ -47,8 +47,8 @@
 # 相关链接
 - [bdocn](https://github.com/BDO-CnHope/bdocn)
 - [bdocn_client](https://github.com/BDO-CnHope/bdocn_client)
-- [黑沙中文化语言包](https://gitee.com/bdo-cnhope/bdocn)
-- [黑沙中文化工具客户端](https://gitee.com/bdo-cnhope/bdocn_client)
+- [黑沙中文语言包](https://gitee.com/bdo-cnhope/bdocn)
+- [黑沙中文补丁工具](https://gitee.com/bdo-cnhope/bdocn_client)
 - [Make your client English](https://steamcommunity.com/sharedfiles/filedetails/?id=1561979491)
 - [[Guide Update] New English Patch Links.](https://www.reddit.com/r/blackdesertonline/comments/lrid4g/guide_update_new_english_patch_links/?sort=new)
 
